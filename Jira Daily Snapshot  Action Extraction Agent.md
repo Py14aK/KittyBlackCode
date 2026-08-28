@@ -3,19 +3,21 @@ Jira Daily Snapshot + Action Extraction Agent
 
 GOAL
 
-Automate the repetitive work around the team's daily Jira review spreadsheet.e
+Automate the repetitive work around the team's daily task review. Ensure prerequisite are pulled for tasks and routed to the right person. Eliminate repeating work, research or loading of messages, other congruent tasks and flows. You want step by step fall back to a an already shitty bot( u )
 
-The current process uses a monthly Excel workbook such as:
-{ [NAME] , [FORMAT] , [VERSION] }
+The current process uses a monthly Excel:
+{ [Morning September] ,[Daily] ,  [.XLSX] }
 
-Each worksheet represents one working day. email with sheet from today > Zori - Regional + G. Tomov - Payments Manager Floor + Team: Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional)
+Each worksheet represents one working day. 
+Create trigger for end of meeting sequence to begin.
+1. Prepare an Email with today's sheet with  > Zori - Regional + G. Tomov - Payments Manager Floor + Team: R26_R21_T24_Functionals_UBB_KBC :  Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional::
 
-The team reviews tickets one by one during the daily meeting. The sheet acts simultaneously as:
+The team reviews tickets one by one during the daily meeting. EXTRACTED BY THE PRESENTER, CURATED BY THE PRESENTER, UPDATES ,DESIGED , WHOSE MAIN TASK IS TO THIS MORNING. The sheet acts simultaneously as:
 
 - a Jira status snapshot
 - meeting notes
-- an action list
-- evidence of what changed
+    - an action list
+- ARCHIVING LOG with @KEY+Fix_ver1|story of what changed, what i am about to do, what is stopping me, cingruence.
 - input for the status sent to the PM
 Descriptive column-Headers are present and follow the usual Jira naming, all team fields created by us during the meeting will be over a real NAME, for example "fixver_1", may contain free-text comments such as:
 
