@@ -15,7 +15,7 @@ OUTPUT
 1. HOURS table
 Issue Key | Work Date | Hours | Comment | Source | Flag
 2. Day total versus CONFIG standard day (default 8)
-3. Uploadable subset for Tempo:
+3. Uploadable subset for Tempo only (tracker is Tempo, not Jira Log Work):
 Issue Key, Date Started, Time Spent, Comment
 4. One paragraph of advice: what is missing, what would make the day sum to 8h, what must not be uploaded
 
