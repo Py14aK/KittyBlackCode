@@ -1,15 +1,14 @@
-,,/
+
 Jira Daily Snapshot + Action Extraction Agent
 
-Purpose
+GOAL
 
-Automate the repetitive work around the team's daily Jira review spreadsheet.
+Automate the repetitive work around the team's daily Jira review spreadsheet.e
 
 The current process uses a monthly Excel workbook such as:
+{ [NAME] , [FORMAT] , [VERSION] }
 
-"~ Payment July daily.xlsx"
-
-Each worksheet represents one working day.
+Each worksheet represents one working day. email with sheet from today > Zori - Regional + G. Tomov - Payments Manager Floor + Team: Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional)
 
 The team reviews tickets one by one during the daily meeting. The sheet acts simultaneously as:
 
@@ -18,8 +17,7 @@ The team reviews tickets one by one during the daily meeting. The sheet acts sim
 - an action list
 - evidence of what changed
 - input for the status sent to the PM
-
-One column, for example "fixver_1", may contain free-text comments such as:
+Descriptive column-Headers are present and follow the usual Jira naming, all team fields created by us during the meeting will be over a real NAME, for example "fixver_1", may contain free-text comments such as:
 
 "He will write an email to X."
 
