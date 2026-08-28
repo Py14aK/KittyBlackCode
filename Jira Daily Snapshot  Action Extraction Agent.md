@@ -5,19 +5,37 @@ GOAL
 
 Automate the repetitive work around the team's daily task review. Ensure prerequisite are pulled for tasks and routed to the right person. Eliminate repeating work, research or loading of messages, other congruent tasks and flows. You want step by step fall back to a an already shitty bot( u )
 
-The current process uses a monthly Excel:
-{ [Morning September] ,[Daily] ,  [.XLSX] }в
-Each worksheet represents one working day. 
+The current process uses an excel with sheets named by Date with current owner being Neda while the rest of us can edit and view.
+{ @share-point
+[Morning September]
+[Daily]   
+[.XLSX] 
+}
+Each worksheet represents one working day. It is manually created from scratch by the Presenter from the search then filter in JIRA WEBSITE.
+
 Create trigger for  meeting sequence to begin and end.
-    MUST HAVE OUTPUT :Prepared an Email with today's sheet with  > Zori - Regional + G. Tomov - Payments Manager Floor + Team: R26_R21_T24_Functionals_UBB_KBC :  Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional:: 
- Здравейте,
+Create trigger for allowing transcription by the one giving information on the ticket. But it can't be defaulted to on, that destroy all communiation.
+
+Create 8 phrases most ofthen used by Presenter to dictate an action,do from the current and last months book, get them from sharepoint.
+
+MUST HAVE 
+AT THE END OF MEETING
+OUTPUT:Prepared an Email with today's sheet with  > Zori - Regional + G. Tomov - Payments Manager Floor + Team: R26_R21_T24_Functionals_UBB_KBC :  Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional:: . The email isn't a template, it should be a legit outlook file that opens the app with the email being a at the state of final rdy to send version.
+Header - Continue the Chain of emails, usually UBB Daily something...
+Use last email as template.
+
+>>Здравейте,
  
 Изпращам - ТАБЛИЦА със задачи, коментари и решения - "След сутрешната среща" - Дата - Джира.
 
+Key|col|col|col .....
+
+<<
+
 The team reviews tickets one by one during the daily meeting. EXTRACTED BY THE PRESENTER, CURATED BY THE PRESENTER, UPDATES ,DESIGED , WHOSE MAIN TASK IS TO THIS MORNING. The sheet acts simultaneously as:
 
-- a Jira status snapshot
-- meeting notes
+- a Jira Ticket Archiver
+- meeting decisions
     - an action list
 - ARCHIVING LOG with @KEY+Fix_ver1|story of what changed, what i am about to do, what is stopping me, congruence.
 - input for the status sent to the PM
@@ -25,9 +43,9 @@ Descriptive column-Headers are present and follow the usual Jira naming, all tea
 If - Declarative statement with the verb being WILL DO x/ MUST do something[not used]. 
 "to write an email to X." ->
 
-Those comments frequently contain a self contained task and follow up list].
-
-The aim is to turn the existing spreadsheet into a lightweight agentic workflow without replacing the team's current process.
+Those comments frequently contain a self contained task and follow up list.
+Goal
+-to turn the existing spreadsheet to a Task preparation agentic workflow without replacing the team's current process.
 
 ---
 
@@ -95,6 +113,8 @@ If today's comment field is empty but yesterday contained an unresolved action, 
 Compare today's Jira keys with yesterday's.
 
 If:
+
+
 
 "ticket_today ∉ tickets_yesterday"
 
