@@ -1,0 +1,59 @@
+ACTION EXTRACT TWO-PASS
+Priority 1 from user ranking: forgotten actions hidden in fixver_1.
+Use after the mail closer if comments are messy.
+
+PASS 1  CLASSIFY ONLY
+Input: ticket key + raw fixver_1 text + optional yesterday text.
+Output JSON only. No mail. No advice.
+
+{
+  "ticket": "TSC-41246",
+  "spans": [
+    {
+      "text": "Development finished and deployed to SYT.",
+      "class": "STATUS",
+      "owner": null,
+      "action": null,
+      "open": false,
+      "confidence": "high"
+    },
+    {
+      "text": "Antonio will email UAT for confirmation.",
+      "class": "ACTION",
+      "owner": "Antonio",
+      "action": "Email UAT for confirmation",
+      "open": true,
+      "confidence": "high"
+    }
+  ]
+}
+
+class is one of STATUS DECISION ACTION BLOCKER
+owner is a known team name or UNKNOWN or null
+open is true only if work remains
+⊥ PASS 1 may not draft email or rewrite the PM table
+
+PASS 2  USE THE JSON
+Include a span in the PM table Fix Version/s cell if open is true
+or class is BLOCKER
+or the ticket is NEW or CHANGED.
+Drop spans with class STATUS and open false unless they are the only
+context for a CHANGED status.
+
+YESTERDAY CARRY (priority 4, cheapest rule)
+If today's fixver_1 is empty and yesterday has a span with open true,
+copy that span into today and tag CARRY.
+Do not copy yesterday STATUS that is already superseded by today's Jira Status.
+
+PHRASES THAT ARE NOT ACTIONS
+"Development finished..."
+"Deployed to SYT."
+"Agreed to test TARGET before UAT."  -> DECISION, open false unless a named next step follows
+"Antonio emailed the bank yesterday." -> STATUS, open false
+
+PHRASES THAT ARE ACTIONS
+"... will email ..."
+"... will execute the tests"
+"Need confirmation from UAT" -> ACTION or BLOCKER, owner UNKNOWN
+"Send the XML example to the developer"
+"Ask for a new local field"

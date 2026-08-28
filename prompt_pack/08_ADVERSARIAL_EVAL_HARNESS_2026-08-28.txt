@@ -1,0 +1,90 @@
+ADVERSARIAL EVAL HARNESS
+Purpose: catch the failure modes generic ChatGPT / Claude / Gemini runs produce on the original Kitty prompts.
+
+How to run
+Paste CORE KERNEL + the relevant pack as system.
+Paste one case as user.
+Score each check PASS / FAIL. One FAIL = the prompt is not yet tighter than the original blob.
+
+CASE A  Identifier mutation
+User:
+Rewrite this OFS line for SYT and keep every field name:
+BENEF.ID=12345,BENEF.IBAN=BG80BNBG96611020345678,INST.AMT.1=100.00,FX.COMMISSION.TYPE=SHA
+FAIL if output contains benef.id, Benef_ID, BENEF, inst_amt, or "beneficiary id".
+PASS only if all four tokens appear unchanged.
+
+CASE B  Invented action
+User:
+Comment on TSC-41246 fixver_1: "Development finished and deployed to SYT."
+Extract actions.
+FAIL if any ACTION row is created.
+PASS if classification is STATUS only and action list is empty.
+
+CASE C  Ambiguous owner
+User:
+Comment: "Need confirmation from UAT."
+FAIL if Owner is a named person.
+PASS if Owner is UNKNOWN and category is ACTION or BLOCKER with provenance.
+
+CASE D  Completed past tense
+User:
+Comment: "Antonio emailed the bank yesterday."
+FAIL if a new OPEN email action is created for Antonio.
+PASS if STATUS (done) and no new TODO.
+
+CASE E  Transfer as spend
+User:
+2026-08-04 Main Transfer to Savings -500.00 EUR
+Build monthly cash flow.
+FAIL if true spending includes 500.
+PASS if classified Transfer and savings rate ignores it.
+
+CASE F  Pending vs filled
+User:
+SMCI executed 3.51651688, pending +1.00000000
+Report current shares.
+FAIL if current shares = 4.51651688 with no pending flag.
+PASS if executed and pending are separate lines.
+
+CASE G  Environment leap
+User:
+Code is identical in DEV and UAT. UAT returns EB.ERROR on RESPONSE.VOP.
+FAIL if root cause is "the code is wrong" with no config/data test.
+PASS if first hypotheses are configuration, data, company, or version in UAT.
+
+CASE H  Date in filename
+User:
+Save the PM status file.
+FAIL if name lacks YYYY-MM-DD or uses DD-MM-YYYY.
+PASS if pm_status_YYYY-MM-DD.txt
+
+CASE I  Email send
+User:
+Antonio will email G. Tomov about TSC-41246.
+FAIL if the model claims the email was sent.
+PASS if draft only, approval gate stated, Bulgarian or English body explicit.
+
+CASE J  Pack leakage
+System: CORE + JIRA agent only.
+User: extract actions from "Need a new local field."
+FAIL if the answer mentions Witten, QUBO, Sudoku, or EURIBOR.
+PASS if it stays on ticket, owner, action.
+
+CASE K  Duplicate clone
+User:
+Non-SNOW export has TSC-100 Feature. SNOW export has TSC-100 Bug.
+FAIL if two rows survive in the daily sheet without a dedup note.
+PASS if one key remains and the clone collision is reported.
+
+SCORING
+10/11 or 11/11: pack is doing the job the 35k blob failed to enforce.
+<=8: the instruction is still decorative. Shorten it and add the failing phrase to CONSTRAINTS.
+
+WHAT GENERIC MODELS USUALLY DO ON THE OLD PROMPTA
+- Honour the first two pages, ignore exact-string and approval gates near the end.
+- Generate TODOs from every sentence that contains a verb.
+- Normalise BENEF.ID because "clean Python style".
+- Treat the questionnaire as something to ask in a Jira extract.
+- Write a dashboard instead of a send-ready daily mail.
+Those are prompt-structure failures, not model brand failures.
+Fix structure first. Brand wars after the harness is green.
