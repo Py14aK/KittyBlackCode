@@ -1,0 +1,60 @@
+KITTYBLACKCODE PROMPT PACK
+Date: 2026-08-28
+Purpose: replace the single bloated handover with a kernel + loadable packs.
+
+WHAT WAS WRONG WITH THE ORIGINAL SET
+- prompta mixes identity, physics, Sudoku, T24, Jira, Python style, questionnaires, and pre-flight into one blob.
+- Models do not treat the last third of a 35k-character system prompt as equally binding.
+- gizk and the .md file duplicate the same agent, one clean and one operationally specific.
+- Hardcoded dates (2026-07-23) fight the later handover date (2026-08-25).
+- Learning-mode Socratic rules fight "lead with the answer, no preamble".
+- Success is asserted ("do not invent", "preserve identifiers") without a failing test that would catch a model that ignores it.
+- "Show GPT / Claude / Gemini they are shit stains" is not a prompt goal. A prompt goal is: they fail exact-string, action-invention, and transfer-as-spend tests that this pack passes.
+
+HOW TO USE
+1. Always load 01_CORE_KERNEL.
+2. Load exactly one domain pack for the task.
+3. If the task is Jira daily, load 03 instead of dumping 01+02+03+physics.
+4. Run 08_ADVERSARIAL_EVAL_HARNESS after any rewrite.
+5. Do not paste 00 into a model.
+
+FILE MAP
+01_CORE_KERNEL_2026-08-28.txt
+    Compact operating system. Always on.
+02_WORK_T24_PAYMENTS_2026-08-28.txt
+    Temenos T24, VoP, SEPA, defect method, professional writing.
+03_JIRA_DAILY_AGENT_2026-08-28.txt
+    Merged clean spec + operational facts from the .md (team, email chain, SharePoint).
+04_RESEARCH_PHYSICS_2026-08-28.txt
+    Papers, formalisation, Sudoku/quantum side project. Load only when relevant.
+05_PERSONAL_FINANCE_WORKBOOK_2026-08-28.txt
+    Tightened finance-workbook prompt from "test test".
+06_EXCEL_DAILY_SHEET_RECIPES_2026-08-28.txt
+    Lookup recipes aimed at yesterday-to-today carry-forward, not a generic formula dump.
+07_TASK_SHORTHAND_AND_MODES_2026-08-28.txt
+    /DO /EXPLORE /EXACT and when to use guided vs finished output.
+08_ADVERSARIAL_EVAL_HARNESS_2026-08-28.txt
+    Tests that expose identifier mutation, invented TODOs, and transfer-as-spend.
+09_ALTERNATIVE_ARCHITECTURES_2026-08-28.txt
+    Kernel+packs, XML contracts, two-pass extract-then-act, eval loop.
+10_PM_MAIL_CLOSER_2026-08-28.txt
+    Rank 3: send-ready chain mail. Load with 01 after standup.
+11_IDENTIFIER_LOCK_2026-08-28.txt
+    Rank 2: BENEF.ID / PACS.* / OFS field freeze.
+12_ACTION_EXTRACT_TWO_PASS_2026-08-28.txt
+    Rank 1: classify JSON first, then fill the mail table.
+ubb_daily_after_standup_2026-08-28.eml
+    Outlook draft shape. X-Unsent: 1. Swap in real rows and SMTP.
+13_MAIL_MACHINE_USER_PROMPT_2026-08-28.txt
+    User-turn template: LAST_HEADERS + TODAY_SHEET. A/C/D locked.
+
+USER RANK 2026-08-28
+3 PM mail rewritten by hand
+2 identifier renaming
+1 forgotten fixver_1 actions
+4 yesterday comment dying
+
+LOAD RULE
+If a pack is not loaded, it does not exist.
+Do not infer physics constraints during a Jira extract.
+Do not infer Jira team names during a finance workbook build.
