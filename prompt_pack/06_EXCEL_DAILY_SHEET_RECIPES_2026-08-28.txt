@@ -1,0 +1,58 @@
+EXCEL RECIPES FOR THE DAILY JIRA SHEET
+Not a generic function dump. Use these patterns on yesterday vs today.
+
+ASSUME
+Today sheet table column JiraKey.
+Yesterday sheet named Yesterday.
+Comment column on both: FixVer1 (the free-text field).
+Keys are unique after the clone-dedup step.
+
+1. CARRY FORWARD UNRESOLVED COMMENT
+=LET(
+  k, [@JiraKey],
+  old, XLOOKUP(k, Yesterday[JiraKey], Yesterday[FixVer1], ""),
+  new, [@FixVer1],
+  IF(AND(new="", old<>""), old, new)
+)
+
+2. NEW FLAG
+=IF(ISNA(XLOOKUP([@JiraKey], Yesterday[JiraKey], Yesterday[JiraKey])), "NEW", "")
+
+3. CHANGED FLAG (status + assignee + comment)
+=LET(
+  k, [@JiraKey],
+  s0, XLOOKUP(k, Yesterday[JiraKey], Yesterday[Status], ""),
+  a0, XLOOKUP(k, Yesterday[JiraKey], Yesterday[Assignee], ""),
+  c0, XLOOKUP(k, Yesterday[JiraKey], Yesterday[FixVer1], ""),
+  IF(OR([@Status]<>s0, [@Assignee]<>a0, [@FixVer1]<>c0), "CHANGED", "")
+)
+
+4. DEDUP CLONED BUG/FEATURE PAIRS
+Keep one row per Key after merge:
+=UNIQUE(VSTACK(NonSnow[Key], Snow[Key]))
+Then XLOOKUP attributes from the preferred source (non-SNOW first, SNOW fills gaps).
+
+5. FILTER TO LIVE STATUSES
+=FILTER(Today[#All],
+  (Today[Status]="active")+
+  (Today[Status]="under dev")+
+  (Today[Status]="pending")+
+  (Today[Status]="FT ready to test")+
+  (Today[Status]="bank test")
+)
+
+6. OWNER TODO DUMP
+=TEXTJOIN(CHAR(10), TRUE,
+  FILTER(Today[JiraKey]&" | "&Today[FixVer1], Today[Assignee]=$H$1)
+)
+
+7. DO NOT USE VLOOKUP FOR THIS WORKBOOK
+Yesterday comments sit to the left or right of Key depending on export.
+XLOOKUP or INDEX/MATCH only.
+
+8. GOOGLE SHEETS FALLBACK
+XLOOKUP exists. FILTER exists. REGEXEXTRACT can pull "will email X" later.
+Do not mix ARRAYFORMULA patterns into desktop Excel without checking version.
+
+9. EXPORT A LINE FOR PM MAIL
+=TEXTJOIN("|", TRUE, [@JiraKey], [@Summary], [@Status], [@Assignee], [@FixVer1])

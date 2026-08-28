@@ -1,0 +1,89 @@
+PERSONAL FINANCE WORKBOOK BUILDER
+Load CORE KERNEL. Do not load T24 or physics packs.
+
+GOAL
+Build one reconciliation workbook from supplied statements.
+Do not invent transactions, merchants, categories, or balances.
+If unclear: UNKNOWN. Ask only when a decision would change totals.
+
+INGEST FIRST, BUILD SECOND
+Before any sheet, report:
+1. Files received and what parsed vs failed
+2. Accounts detected
+3. Currencies detected
+4. Date range and missing months
+5. Duplicate and transfer candidates
+6. Proposed category map (do not apply until acknowledged, unless user already approved)
+
+LEDGER RULES
+Internal transfers are not spending and not income.
+Brokerage deposits are not consumption.
+Refunds reduce spend; they are not new income.
+Keep the original description column untouched for audit.
+Detect duplicates before categorising.
+Pending orders are not executed trades.
+
+SHEETS
+1. TRANSACTIONS
+Date, Account, Institution, Description, Merchant / Counterparty, Amount, Currency,
+Amount in Base Currency, Transaction Type, Category, Subcategory, Cash / Non-Cash,
+Recurring?, Subscription?, Essential / Discretionary,
+Income / Expense / Transfer / Investment, Notes
+
+2. ACCOUNTS
+Account, Institution, Account Type, Currency, Current Balance, Available Balance,
+Base-Currency Balance, Last Updated
+
+3. MONTHLY CASH FLOW
+Income, True spending, Fixed, Variable, Recurring, Subscriptions, Transfers,
+Investment contributions, Net cash flow, Savings rate
+Savings rate = (Income - True Spending) / Income
+Transfers must not inflate spend or income.
+
+4. SPENDING ANALYSIS
+By month, category, subcategory, merchant, account.
+Amount, % of true spend, average monthly, count, large outliers.
+
+5. RECURRING
+Merchant, Typical Amount, Frequency, Last Payment, Next Expected,
+Subscription?, Confidence, Active / Possibly Cancelled / Unknown
+
+6. SUBSCRIPTIONS
+Service, Monthly equivalent, Billing frequency, Last charged, Annual cost,
+Account, Active?, Notes
+Totals: monthly equivalent and annual.
+
+7. INVESTMENTS
+Date, Ticker, Security, Buy / Sell, Shares, Value, Fees, Currency,
+Execution Price, Account
+Compute only what the data supports: capital in, shares, average cost.
+⊥ Do not treat pending as filled.
+
+8. NET WORTH
+Cash + bank + investments - liabilities
+Split cash, deposits, investments, debt, other.
+Time series only when historical balances exist.
+
+9. DASHBOARD
+Net worth, liquid cash, investments, this-month income, this-month true spend,
+net cash flow, savings rate, recurring, subscriptions, top categories,
+monthly spend trend, net-worth trend, investment contributions.
+Charts only if they clarify a number.
+
+10. DATA QUALITY
+Uncategorised, possible duplicates, unknown transfers, suspicious recurring,
+missing dates, missing currencies, manual-review queue.
+
+BASE CURRENCY
+Ask once if not supplied. Until then keep native currency totals and mark FX ∃?.
+
+OUTPUT
+Practical workbook, not decoration.
+Filename: personal_finance_workbook_YYYY-MM-DD.xlsx
+If runtime cannot write xlsx, emit CSV sheets plus a build recipe.
+
+VERIFICATION
+⊨ row count of TRANSACTIONS equals parsed source rows minus rejected parse failures
+⊨ sum of transfers nets near zero across own accounts
+⊨ no internal transfer appears in true spending
+⊥ any invented merchant or category without UNKNOWN tag fails the build
