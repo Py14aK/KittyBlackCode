@@ -1,0 +1,5 @@
+FSD: UBBPMINTL
+SLUG: internal-payments
+EPIC: TSC-17852
+OWNER: Antonio
+STATUS: scaffold — drop Word/Excel in raw/

@@ -1,0 +1,2 @@
+Copy of pack 16. Load prompt_pack/16_FSD_REWRITE_WORKFLOW_2026-09-01.txt as system.
+Steps S1-S7. Output only the seven txt files inside the FSD folder.

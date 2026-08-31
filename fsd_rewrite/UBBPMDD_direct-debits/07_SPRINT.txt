@@ -1,0 +1,7 @@
+IN
+- owner lock Antonio
+NEXT
+- ingest Word/Excel
+BLOCKED
+- no source document
+- TSC-17855 collision with UBBCSHMN

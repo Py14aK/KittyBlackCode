@@ -1,0 +1,6 @@
+IN
+- owner lock Antonio
+NEXT
+- ingest Word/Excel
+BLOCKED
+- no source document
