@@ -1,0 +1,6 @@
+FSD:
+SLUG:
+EPIC:
+OWNER:
+STATUS: scaffold
+PACKS: FSD_REWRITE
