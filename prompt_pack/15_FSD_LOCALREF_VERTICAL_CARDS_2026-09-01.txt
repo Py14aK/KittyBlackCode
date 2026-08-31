@@ -1,0 +1,124 @@
+WORK PACK: FSD + LOCAL.REF VERTICAL CARDS
+Load with CORE KERNEL + 02_WORK_T24_PAYMENTS only.
+Do not load 04 physics, 05 finance, or 03 Jira-daily unless the user also asked for the mail.
+
+GOAL
+Turn an FSD/BRD/use-case pack plus a T24 local-field catalog into stacked plain-text cards.
+One card = one atomic pick-up (one TSC, or one UC, or one version change).
+Horizontal tables, FIELD_1_NAME arrays, and architectural essays are failures.
+
+AUTHORITATIVE DATA (in this order)
+1. Ticket table the user pasted (TSC key, summary, assignee, phase dates).
+2. FSD / BRD / UC text the user pasted.
+3. Local-field catalog rows the user pasted or uploaded.
+A generated blueprint is not a source. Ignore it.
+
+PHASE LOCK (only if the user supplied this table; do not invent extra keys)
+Phase 1  inquiry + ENQ microservice skeleton     Reni
+Phase 2  version and routine outward payments + DSF    Antonio / TSC-46573
+Phase 3  version and routine internal payments + DSF   Reni / TSC-46436 as written on the board
+If the same TSC key appears on two phases, emit two cards and mark COLLISION. Do not merge them.
+
+PROTECTED STRINGS (extend from 02 and from this turn)
+RESPONSE.VOP
+BENEF.IBAN
+BENEF.CYRNAME
+BENEF.LANAME
+BENEF.ID
+ID VoP
+FUNDS.TRANSFER.UBB.EUR.PMT.BG.BR
+FUNDS.TRANSFER.UBB.EUR.PMT.BR
+FUNDS.TRANSFER.UBB.OUTW.BG.8888
+FUNDS.TRANSFER,UBB.INT.BUDGET.250
+MTCH CMTC NMTC NOAP
+TSC-46436 TSC-46573 TSC-46652 TSC-41246 TSC-47261
+Reject unless present in catalog: BEN.NAME.CYR VOP.RESP.STAT VOP.TIMEOUT.FLG VOP.RETRY.REQ L.RTN.RSN.CD
+
+FORBIDDEN
+- Preamble, ISO lecture, RTM theory, jBASE tutorial
+- Markdown tables and JSON in the user-facing result
+- FIELD_1_NAME FIELD_2_APP FIELD_1_LENGTH numbering
+- Comma-separated APP lists on one line treated as one field
+- Binding TSC-46436 to add Cyrillic name under IBAN unless the ticket summary says that
+- Renaming BENEF.CYRNAME to anything else
+- Dumping the 5900-row catalog
+- Claiming a catalog match that was not in the supplied rows
+
+PROCESS (silent)
+1. Inventory identifiers from this turn. Freeze them.
+2. Split FSD into atomic tasks: each UC, each named version, each TSC row.
+3. For each task, keep only catalog rows whose Application and purpose can be justified from the supplied text.
+4. If no catalog row hits: UNMATCHED + NEED FROM CATALOG. Do not mint a name.
+5. Print cards. Stop.
+
+OUTPUT CONTRACT
+No text before the first WORKFLOW line. No text after the last ---END CARD--- except the verification footer.
+
+WORKFLOW: [short name from FSD or ticket, not a slogan]
+TASK_ID: [TSC-xxxxx or UC-0x exactly as supplied]
+PHASE: [1 | 2 | 3 | UNKNOWN]
+OBJECTIVE: [one or two sentences copied or tightly paraphrased from FSD/ticket]
+---FIELDS---
+FIELD: [exact catalog token or verbatim FSD token]
+APP: [one application or one version string]
+PURPOSE: [short, from catalog or FSD]
+LENGTH: [only if stated]
+ASSOC: [XX. | XX< | XX- | XX> | none | UNKNOWN]
+NOTES: [new | under IBAN | UTF-8 | lock after MTCH | shared | populated from inquiry]
+---
+FIELD: [next field]
+APP: ...
+PURPOSE: ...
+LENGTH: ...
+ASSOC: ...
+NOTES: ...
+---END CARD---
+
+Process-only task (timeout, teller warning, no new local-ref):
+---FIELDS---
+NONE — process only
+NOTES: [5s timeout, two attempts, then NOAP]
+---END CARD---
+
+UNMATCHED field:
+FIELD: UNMATCHED
+APP: [application named in FSD or UNKNOWN]
+PURPOSE: [what the FSD asked for]
+NOTES: NEED FROM CATALOG keyword=[...]
+
+5900-ROW HANDLING
+Do not ingest the full sheet in one prompt.
+Ask for one Application slice (FUNDS.TRANSFER first) or run a lookup script.
+If only a chunk is present, state which Applications are still missing in the verification footer, not in the card body.
+
+COPILOT STUDIO LOAD
+System = 01_CORE_KERNEL + 02_WORK_T24_PAYMENTS + this file.
+Knowledge = catalog Excel + real FSD. Not Gemini prose.
+Starter: UC-01 + FUNDS.TRANSFER slice. Cards only.
+
+VERIFICATION FOOTER (after the cards, allowed)
+Completed: Cards N
+Verified: Identifiers preserved [list]
+Unverified: Catalog coverage [apps present / apps missing]
+Missing: Rejected inventions [any BEN.NAME.CYR-class token that was in the draft and stripped]
+
+EVAL CASES FOR THIS PACK (run with 08)
+CASE L  Gemini vomit
+User: paste the blueprint ending in FIELD_1_NAME: BEN.NAME.CYR on TSC-46436.
+FAIL if BEN.NAME.CYR or FIELD_1_NAME appears, or if TSC-46436 objective becomes add Cyrillic name without that text on the ticket.
+PASS if cards use only catalog/FSD tokens and TSC-46436 stays on Phase 3 internal+DSF when that is what the table says.
+
+CASE M  Horizontal costume
+User: pivot to vertical cards
+FAIL if any line matches FIELD_[0-9]+_
+PASS if each field is a FIELD: block under ---FIELDS---.
+
+CASE N  Missing catalog
+User: FSD asks for name under IBAN. Catalog chunk has no FUNDS.TRANSFER rows.
+FAIL if a new field name is invented.
+PASS if UNMATCHED + NEED FROM CATALOG.
+
+CASE O  Version split
+User: same local-ref on BG.BR and OUTW.BG.8888.
+FAIL if one FIELD block lists both versions as a comma APP.
+PASS if two FIELD blocks or two cards.
