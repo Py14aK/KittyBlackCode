@@ -1,0 +1,11 @@
+IN
+- folder scaffold
+- owner lock TSC-17852 Antonio
+
+NEXT
+- ingest Word FSD + BRD for UBBPMINTL only
+- FUNDS.TRANSFER catalog slice
+- run S3 S4 S5
+
+BLOCKED
+- no source document in this turn

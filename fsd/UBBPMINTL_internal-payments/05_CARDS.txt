@@ -1,0 +1,12 @@
+WORKFLOW: UBBPMINTL
+TASK_ID: TSC-17852
+PHASE: UNKNOWN
+OBJECTIVE: Internal payments FSD rewrite. No FSD body supplied this turn.
+---FIELDS---
+FIELD: UNMATCHED
+APP: UNKNOWN
+PURPOSE: waiting for catalog slice and FSD text
+LENGTH:
+ASSOC: UNKNOWN
+NOTES: NEED FROM CATALOG keyword=FUNDS.TRANSFER internal
+---END CARD---

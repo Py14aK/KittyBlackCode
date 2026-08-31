@@ -1,0 +1,5 @@
+2026-09-01b
+16_FSD_REWRITE_WORKFLOW_2026-09-01.txt
+  Turns Word/Excel FSD+BRD into one folder per FSD ID.
+  Load 01 + 02 + 15 + 16.
+  Sample folder: fsd/UBBPMINTL_internal-payments/
