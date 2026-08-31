@@ -1,0 +1,21 @@
+MODE: /DO
+FSD_ID: UBBPMINTL
+OWNER_OVERRIDE: (leave blank unless the Teams table changed)
+SOURCES:
+WORD_FSD: (paste path or paste the FSD text below)
+EXCEL_BRD: (paste path or paste the BRD rows below)
+CATALOG_SLICE: FUNDS.TRANSFER
+CATALOG_ROWS:
+(paste only the catalog rows for this application)
+
+CONSTRAINTS:
+- One folder / seven files for this FSD_ID only
+- Vertical cards in 05_CARDS.txt
+- No FIELD_1_NAME
+- No invented T24 names
+- UNKNOWN if not in sources
+
+OUTPUT:
+The seven artifacts in order.
+=== FILE: 00_INDEX.txt ===
+...
