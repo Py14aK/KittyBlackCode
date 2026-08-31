@@ -1,0 +1,23 @@
+MODEL: GPT-5.6 Sol
+REASONING: max
+MODE: /DO
+
+FSD_ID: UBBPMINTL
+
+WORD_FSD:
+(paste FSD text or say NOT SUPPLIED)
+
+EXCEL_BRD:
+(paste BRD text or say NOT SUPPLIED)
+
+CATALOG_SLICE: FUNDS.TRANSFER
+CATALOG_ROWS:
+(paste rows or say NOT SUPPLIED)
+
+CONSTRAINTS:
+- Seven files only for FSD_ID above
+- 05_CARDS vertical
+- No FIELD_1_NAME
+- No invented T24 names
+- UNKNOWN if missing
+- Do not touch other FSD folders
