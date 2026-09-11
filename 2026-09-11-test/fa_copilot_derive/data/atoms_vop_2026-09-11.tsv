@@ -1,0 +1,35 @@
+atom_id	source	subject	assertion	anchor	note
+# BRD atoms: contracted facts, taken from the business document
+B01	BRD	enquiry.scope	Two new T24 enquiries are created, one for branch and one for head office	BRD 2.3.I	
+B02	BRD	enquiry.input.iban	The enquiry accepts the payee IBAN as input	BRD 2.3.I	
+B03	BRD	enquiry.input.name_lat	The enquiry accepts the payee name in Latin, max VARCHAR 140	BRD 2.3.I	
+B04	BRD	enquiry.input.name_cyr	The enquiry accepts the payee name in Cyrillic, max VARCHAR 140, UTF-8	BRD 2.3.I	
+B05	BRD	service.api_call	A routine performs an API call to a microservice supplied by Borica	BRD 2.3.I	spec promised separately
+B06	BRD	service.response_codes	The service answers with exactly one of MTCH, CMTC, NMTC, NOAP	BRD 2.3.I.4	
+B07	BRD	service.cmtc_suggested_name	A close match returns a suggested name alongside the code	BRD 2.3.I.4	
+B08	BRD	flow.client_refusal	On refusal the employee exits the enquiry and no FT is created	BRD 2.3.I.5	
+B09	BRD	flow.client_confirmation	On confirmation the employee opens the corresponding version from the menu	BRD 2.3.I.5	
+B10	BRD	internal.popup_trigger	Filling Ben. Customer 1 with credit currency EUR opens a pop-up	BRD internal	
+B11	BRD	internal.popup_content	The pop-up shows Ben. Customer 1 against BG.NAME from CUSTOMER for the payee account	BRD internal	
+B12	BRD	internal.ft_audit_field	Ben. Customer 1 data is written into the FT for later reference	BRD internal	
+B13	BRD	internal.commit_printout	On commit a payment document is printed certifying the check	BRD internal	deal slip identical across the three versions
+B14	BRD	internal.local_field_values	A local field accepts Yes, No or blank in the three internal versions	BRD internal	
+B15	BRD	internal.sector_validation	Where client sector is not 5100 5200 5900 9400, a filled value is mandatory	BRD internal	
+B16	BRD	internal.no_triggers_popup	Value No opens the name comparison pop-up	BRD internal	
+# FSD section 8, Solution: our claims.  A claim is not a fact.
+C01	FSD_S8	enquiry.scope	Two new T24 enquiries are created, one for branch and one for head office	FSD 8.1	
+C02	FSD_S8	enquiry.input.iban	The enquiry accepts the payee IBAN as input	FSD 8.1	
+C03	FSD_S8	enquiry.input.name_lat	The enquiry accepts the payee name in Latin, max VARCHAR 140	FSD 8.1	
+C04	FSD_S8	enquiry.input.name_cyr	The enquiry accepts the payee name in Cyrillic, max VARCHAR 140, UTF-8	FSD 8.1	
+C05	FSD_S8	service.api_call	A routine performs an API call to a microservice supplied by Borica	FSD 8.2	
+C06	FSD_S8	service.response_codes	The service answers with exactly one of MTCH, CMTC, NMTC, NOAP	FSD 8.2	
+C07	FSD_S8	service.cmtc_suggested_name	A close match returns a suggested name and it is stored on the record	FSD 8.2	wording differs from B07
+C08	FSD_S8	flow.client_refusal	On refusal the employee exits the enquiry and no FT is created	FSD 8.3	
+C09	FSD_S8	flow.client_confirmation	On confirmation the employee opens the corresponding version from the menu	FSD 8.3	
+C10	FSD_S8	internal.popup_trigger	Filling Ben. Customer 1 with credit currency EUR opens a pop-up	FSD 8.4	
+C11	FSD_S8	internal.popup_content	The pop-up shows Ben. Customer 1 against BG.NAME from CUSTOMER for the payee account	FSD 8.4	
+C12	FSD_S8	enquiry.row_retention	Rows carrying an FT remain visible in the enquiry	FSD 8.5	R02, no BRD source
+C13	FSD_S8	enquiry.last_row	Exactly one final row is always present, carrying the three attributes	FSD 8.5	R03, no BRD source
+C14	FSD_S8	ft.duplicate_guard	An existing FT reference blocks a second FT on the same request	FSD 8.6	R09, no BRD source
+C15	FSD_S8	request.new_identity	Regenerating from an existing row creates a new record with a new id	FSD 8.6	R07, no BRD source
+# T24 empirical: observed behaviour.  Empty on purpose - nothing has been run.
