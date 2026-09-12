@@ -1,2 +1,87 @@
-Copy of pack 16. Load prompt_pack/16_FSD_REWRITE_WORKFLOW_2026-09-01.txt as system.
-Steps S1-S7. Output only the seven txt files inside the FSD folder.
+# FSD / BRD REWRITE WORKFLOW
+Date: 2026-09-12
+Purpose: Transform legacy FSD (Word) and BRD documents into agent-runnable folder structure
+
+---
+
+## SYSTEM PROMPT
+Load: prompt_pack/01 + 02 + 15 + 16
+See: prompt_pack/16_FSD_REWRITE_WORKFLOW_2026-09-01.txt for full pack definitions
+
+---
+
+## FOLDER CONTRACT
+Each FSD ID generates one folder structure:
+```
+fsd/<FSD-ID>_<short-slug>/
+  00_INDEX.txt       # Overview & navigation
+  01_SOURCE.txt      # Raw source document paths
+  02_EPIC.txt        # FSD boundary & ownership (from OWNERS.txt)
+  03_BRD_ATOMS.txt   # Business requirements broken into atoms
+  04_FSD_ATOMS.txt   # Functional spec broken into atoms
+  05_CARDS.txt       # Feature cards (via pack 15)
+  06_GAPS.txt        # Known gaps & blockers
+  07_SPRINT.txt      # Sprint assignment (IN / NEXT / BLOCKED)
+  raw/               # Source documents (Word/Excel)
+```
+
+---
+
+## EXECUTION STEPS (S1-S7)
+
+**S1: INGEST**
+- Parse source document paths into 01_SOURCE.txt
+- Link raw/ folder contents
+
+**S2: BOUNDARY**
+- Extract FSD ID and ownership from OWNERS.txt
+- Populate 02_EPIC.txt with epic ID, owner, and folder reference
+
+**S3: ATOMIC BRD**
+- Break BRD requirements into reusable atoms
+- Store in 03_BRD_ATOMS.txt
+
+**S4: ATOMIC FSD**
+- Break FSD into reusable atoms
+- Store in 04_FSD_ATOMS.txt
+
+**S5: CARDS**
+- Generate feature cards using pack 15 (LOCALREF_VERTICAL_CARDS)
+- Populate 05_CARDS.txt
+
+**S6: GAPS**
+- Identify blockers, unknowns, or incomplete sections
+- Store in 06_GAPS.txt
+- **STOP here if critical gap found** (UNKNOWN owner, missing source)
+
+**S7: SPRINT**
+- Classify atoms into IN (current), NEXT (planned), BLOCKED (waiting)
+- Populate 07_SPRINT.txt
+
+---
+
+## INPUT
+User provides:
+```
+FSD_ID + SOURCES + CATALOG_SLICE + MODE /DO
+```
+
+Examples:
+- `UBBPMA1 /DO` → Process UBBPMA1_a1-movements (see OWNERS.txt)
+- `UBBPMDD /DO` → Process UBBPMDD_direct-debits
+
+---
+
+## CONSTRAINTS
+- ✗ Do NOT generate mega Word output
+- ✗ Do NOT invent field names
+- ✗ Do NOT mix FSD IDs in one folder
+- ✗ Do NOT update Jira
+- ✗ Do NOT fill UNKNOWN owner cells
+- ✗ Do NOT load pack 04 (physics) or 05 (finance)
+
+---
+
+## REFERENCE
+See OWNERS.txt for FSD ID → folder mapping and ownership.
+See README.txt for setup and ready-to-ingest FSDs.
