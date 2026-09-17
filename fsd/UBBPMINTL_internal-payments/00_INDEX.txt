@@ -1,0 +1,6 @@
+FSD: UBBPMINTL
+SLUG: internal-payments
+EPIC: TSC-17852
+OWNER: Antonio
+PACKS: 01 + 02 + 15 + 16
+STATUS: scaffold only — sources not ingested this turn

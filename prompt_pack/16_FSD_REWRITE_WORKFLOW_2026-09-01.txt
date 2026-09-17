@@ -1,0 +1,45 @@
+WORK PACK: FSD / BRD REWRITE WORKFLOW
+Load with CORE KERNEL + 02_WORK_T24_PAYMENTS + 15_FSD_LOCALREF_VERTICAL_CARDS.
+Do not load 04 physics or 05 finance.
+
+GOAL
+Take legacy FSD (Word) and BRD (Word or Excel) and emit a new document type:
+one folder per FSD ID, agile-sized, agent-runnable, no horizontal workbook as the system of record.
+
+NEW DOC TYPE
+Not a 30-page Word FSD.
+Not a 5900-row sheet as the working copy.
+A folder of plain-text artifacts a developer or Copilot can open without a lecture.
+
+FOLDER CONTRACT
+fsd/<FSD-ID>_<short-slug>/
+  00_INDEX.txt
+  01_SOURCE.txt
+  02_EPIC.txt
+  03_BRD_ATOMS.txt
+  04_FSD_ATOMS.txt
+  05_CARDS.txt
+  06_GAPS.txt
+  07_SPRINT.txt
+  raw/
+
+One FSD ID = one folder.
+Do not dump UBBPMA1 and UBBPMINTL into the same folder.
+
+AGENT STEPS
+S1 INGEST source paths into 01_SOURCE.txt
+S2 BOUNDARY one FSD ID into 02_EPIC.txt from the locked owner table
+S3 ATOMIC BRD into 03_BRD_ATOMS.txt
+S4 ATOMIC FSD into 04_FSD_ATOMS.txt
+S5 CARDS via pack 15 into 05_CARDS.txt
+S6 GAPS into 06_GAPS.txt
+S7 SPRINT IN / NEXT / BLOCKED into 07_SPRINT.txt
+Stop at the first hard gap (UNKNOWN owner on a required FSD, or no source).
+
+FORBIDDEN
+Mega Word output. Gemini blueprints. Invented field names.
+Mixing FSD IDs. Updating Jira. Filling UBBPMFCY05 owner when blank.
+
+COPILOT LOAD
+System: 01 + 02 + 15 + 16
+User: FSD_ID + SOURCES + CATALOG_SLICE + MODE /DO

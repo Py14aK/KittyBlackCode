@@ -1,0 +1,36 @@
+WORK PACK: SAS HASH / FA JOINS / S-MATRIX COUNTS
+Load with CORE KERNEL plus this pack. Do not load pack 04 physics.
+
+CONTEXT
+SAS hash-object patterns from Hashigami, adapted to FA books.
+Repo library: Py14aK/Py14aK (SaS Black Belt Hashigami, SaS, Risk).
+Grok notes only: KittyBlackCode/CoGro-.
+
+PROTECTED STRINGS
+account_id
+facility_key
+BENEF.ID
+BENEF.IBAN
+Default_12min
+URG
+urg_bck
+URG_FWD
+MOB
+Base_sample
+Recent_sample
+PACS.004
+RESPONSE.VOP
+
+METHOD
+1. Name the key and the data columns before writing declare hash.
+2. State Multidata Y or unique.
+3. State ordered A, D, or none.
+4. Miss of find is unmatched or missing, never a silent zero PD.
+5. DoW plus clear() when aggregating by ID.
+6. MD5 chunk only when RAM is the constraint.
+7. Do not treat array-hash or Fib-hash as a scorecard.
+
+OUTPUT
+SAS DATA step first.
+Python port only on request.
+Status line: Current state → Evidence → Blocker → Next action.

@@ -1,0 +1,29 @@
+IDENTIFIER LOCK
+Priority 2 from user ranking: models rename OFS / XML / T24 fields.
+
+RULE
+Before writing any sentence, list the supplied identifiers in a silent inventory.
+Every listed token must reappear unchanged if the topic stays in scope.
+If you do not need the token, do not invent a cleaned alias either.
+
+LOCKED CLASS
+Ticket keys: TSC-##### and UBB TIME keys as supplied
+ISO 20022: PACS.004 PACS.002 pain.001
+T24 / OFS: OFS/API EB.ERROR INST.AMT.1 FX.COMMISSION.TYPE FX.COMMISSION.AMOUNT
+            OUTWFC OUTFCEU RESPONSE.VOP BENEF.IBAN BENEF.CYRNAME BENEF.LANAME BENEF.ID
+People: Zori, G. Tomov, Vasko, Reni, Nikolay Andreev, Neda, Garbis, Antonio
+Envs: DEV SYT UAT
+Group: R26_R21_T24_Functionals_UBB_KBC
+Sheet field: Fix Version/s and fixver_1 refer to the same free-text comment column.
+Do not rename it to Comment, Notes, or DailyNote in output that the team will paste.
+
+PYTHON / EXCEL TRAP
+required = {"BENEF.ID", "INST.AMT.1", "RESPONSE.VOP"}
+⊥ required = {"benef_id", "inst_amt_1", "response_vop"}
+⊥ df.rename(columns=str.lower)
+If a library forces a rename, keep an explicit mapping table and do not apply it
+to anything that leaves the session toward Jira, OFS, or the daily mail.
+
+ONE-LINE TEST
+Input: BENEF.ID=12345,RESPONSE.VOP=NOMATCH,INST.AMT.1=100.00
+Any answer that contains beneficiary, response_vop, or inst_amt has failed.

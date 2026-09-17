@@ -1,0 +1,198 @@
+VOP HANDOVER DECK — MASTER PROMPT
+Date: 2026-09-11
+Load: 01_CORE_KERNEL + this pack. Do not load physics, Jira, or finance packs.
+Use: paste into Copilot Chat with folder
+2026-09-11-test/vop_verification-of-payee
+open. Task is to generate the missing deck file.
+
+ROLE
+You reconstruct one self-contained HTML handover deck for PM and BA.
+You do not answer business decisions. You do not invent T24 field names.
+You do not claim tests ran against a banking system.
+
+TASK
+Create exactly one file:
+
+    UBB_VoP_Handover_2026-09-09.html
+
+Place it in the folder root next to HANDOVER.md.
+If the file already exists, replace it only when the user said regenerate.
+Do not split into CSS/JS modules. One file. No build. No CDN.
+
+READ FIRST, IN THIS ORDER
+1. HANDOVER.md
+2. README.md
+3. EDITING.md
+4. .github/copilot-instructions.md
+5. docs/DECISIONS.md
+6. docs/decisions/ADR-0001-two-routes.md if present
+7. src/vop_enquiry_model_2026_09_09.py if present
+8. tests/test_acceptance_vop_2026_09_09.py if present
+
+If a file is missing, keep going. Mark the gap ∃? in the chat, not in the deck.
+
+WHAT THE DECK IS
+Twelve slides. Bulgarian body text. English only for identifiers
+(VoP, T24, IBAN, FT, MTCH, CMTC, NMTC, NOAP, V01-V13, AC01-AC16, R02-R09).
+Working concept dated 09.09.2026. Not an approved FSD.
+No staff names. No ticket keys. No internal hosts.
+
+THE FOUR RULES (must appear, these wordings or equivalent short Bulgarian)
+P1 / R02  A row with FT stays visible after the transfer exists.
+P2 / R03  Exactly one last row. It carries only the three selection attributes.
+          FT has no basis on that row.
+P3        A new query is allowed on an old, negative, or failed check without FT.
+P4 / R08-R09
+          FT is created against the selected existing check.
+          An existing FT-reference blocks a second create.
+
+TWO ROUTES (must not be collapsed)
+Generate request: new identity, new local record, new concat link.
+Create FT: read the selected record by its id, check FT-reference, block or link.
+Creating an FT is not a reason to mint a new request.
+Back reloads the list and appends exactly one last row.
+
+EXACT STRINGS. DO NOT RENAME
+VoP
+T24
+FT
+IBAN
+SEPA
+SEPA Instant
+Borica
+FUNDS.TRANSFER
+Ben. Customer 1
+BG.NAME
+CUSTOMER
+POP ID
+OpenID
+Check ID
+MTCH
+CMTC
+NMTC
+NOAP
+request_record_id
+external_check_id
+iban
+name_lat
+name_cyr
+request_time
+response_code
+suggested_name
+ft_reference
+V01 V02 V03 V04 V05 V06 V07 V08 V09 V10 V11 V12 V13
+AC01 AC02 AC03 AC04 AC05 AC06 AC07 AC08 AC09 AC10 AC11 AC12 AC13 AC14 AC15 AC16
+R02 R03 R05 R06 R07 R08 R09
+П1 П2 П3 П4
+⊨ ≃ ↦ ⊥
+
+V-LIST. LEAVE EVERY ANSWER BLANK IN THE DECK
+V01 Identifiers: POP ID, OpenID, Check ID. Local key vs concat value. Not synonyms until proven.
+V02 New id when generating from an existing row. Generator, assignment moment, copied attributes.
+V03 Meaning of "втори request": second FT, second external call with same Check ID, or two controls.
+V04 Send, persist, concat, response. Timeout and partial failure.
+V05 Session ID in the concat key. Visibility after re-login. Scope across desks and users.
+V06 When ft_reference is written. Started, refused, cancelled, reversed FT.
+V07 Validity window and admissibility. Which response codes permit FT. Heaviest regulatory item.
+V08 Actions from a completed row. May a new check be generated from a row that already has FT.
+V09 Concurrent FT protection. Scope by durable id, including across sessions.
+V10 Sector rule and local yes/no/empty field. Same for all three internal versions.
+V11 Latin vs Cyrillic. Which name is sent. Over 140 characters. Transliteration or reject.
+V12 Evidence written into the transfer and printed at commit. Store suggested name on CMTC.
+V13 One model for external and internal routes, or two mechanisms with a shared report.
+
+Do not fill these. Do not pick a default in JavaScript that answers V07
+beyond: MTCH may proceed in the simulator; CMTC notes client confirmation;
+NMTC and NOAP stop and name V07.
+
+SLIDE MAP. TWELVE. NO MORE, NO LESS
+1 Title. Lead: the row remains after the transfer. Status, audience, thirteen open decisions.
+2 Resume. P1-P4. Legend ⊨ ≃ ↦ ⊥. Note on "втори request" vs second FT. ≃
+3 What the check is. Three input fields: IBAN, name Latin VARCHAR 140, name Cyrillic VARCHAR 140 UTF-8.
+  Response table MTCH CMTC NMTC NOAP.
+  Internal route: compare entered name to customer record; local field yes/no/empty;
+  sector outside physical persons requires the field; commit prints evidence.
+  Contradiction ⊥: external truth source vs CUSTOMER record. Do not assume one enquiry.
+4 Live enquiry simulator. See SIMULATOR contract below.
+5 Conceptual flow. Inline SVG. Two routes. Diamond "Има ли FT?". Block on yes.
+  Both routes end at Back + one last row.
+  Note: input, commit, outbound send, inbound response moments are not fixed. ≃
+6 Data and states. Field table as listed. States: none / without FT / started (proposed, ↦) / with FT.
+  Empty FT-reference proves nothing about success, freshness, or admissibility. ≃
+7 Decision form. Render V01-V13 from a JS array. Buttons toggle "за попълване" / "решено"
+  for on-screen review only. Do not persist. Do not write into docs/DECISIONS.md.
+8 Acceptance table AC01-AC16. Expectation column names the blocking Vxx where relevant.
+9 Ordinary vs agent flow. Short. Machine does not fill V01-V13.
+10 Optional audit slide of Wu-Yang-Monopole/QT-2-4A only if that repo is in scope.
+   If you cannot read it in this session, omit invented findings. Keep the FSD-discipline point.
+11 Hybrid map: BRD->README, FSD->docs/spec, decisions->ADR, AC->tests, proof->CI.
+12 Next four blockers in order: V01, V03, V04, V07. Then the test pack becomes concrete.
+
+SIMULATOR CONTRACT
+Dark T24-like panel. Columns:
+№  ЗАЯВКА  IBAN  ИМЕ  РЕЗУЛТАТ  МОМЕНТ  FT
+Initial rows:
+VOP-0001  BG18UBBS80021012345678  IVAN PETROV      MTCH  09:12  FT26090001
+VOP-0002  BG52UBBS80021099887766  MARIA DIMITROVA  CMTC  10:04  FT26090002
+VOP-0003  BG74RZBB91551020304050  ALFA TRADE EOOD  MTCH  11:38  FT26090003
+VOP-0004  BG09FINV91501016273849  BETA LOGISTIK    NMTC  13:20  (empty)
+Always append exactly one last row: id "— нов —", placeholders [IBAN] [име], no result, no FT.
+Buttons: Генерирай заявка | Създай FT | Back — презареди | Начално състояние
+FT button disabled when selection is null or the last row.
+Generate from last row: new VOP-id, new record, empty FT. Log R06.
+Generate from a stored row: new VOP-id, copy iban and name from source, do not overwrite source. Log R07. Copied fields other than those two remain V02.
+Create FT: if ft present, block, log R09, name V09.
+If result is NMTC or NOAP, stop, log V07, do not write ft.
+Else write FTyyyyMMdd-style ref onto that same row. Log R08. No new request.
+Back: clear selection, recount rows, log R05, keep one last row.
+Reset: restore the four base rows.
+No network. No persistence. Log is a ring of about 40 lines.
+Iban and name values above are fixtures. Do not treat them as production data.
+
+VISUAL CONTRACT
+Single HTML file. charset utf-8. lang="bg".
+CSS variables:
+--paper #F1F3EF
+--paper-2 #E7EAE4
+--ink #161F27
+--ink-soft #4A5661
+--rule #B6C0B8
+--rule-hard #8B968D
+--stamp #9E2B25
+--ok #2B6446
+--open #9A6B10
+Serif body. Mono for ids, codes, T24 panel, buttons.
+Sticky header rail: "VoP · T24 модел с два маршрута" and the date line.
+Fixed footer: prev/next, dots, "n / 12 · slide title".
+Keyboard: ArrowRight/PageDown next, ArrowLeft/PageUp prev. Ignore when typing.
+Progress bar width = (index+1)/12.
+One slide visible at a time. class "slide on".
+Marks: .m.est ⊨ green, .m.inf ≃ muted, .m.opn ↦ amber, .m.bad ⊥ stamp red.
+No framework. No external font files required. System stacks only.
+Inline SVG for the flow. Do not embed raster images.
+
+PROHIBITED
+- Filling V01-V13 with proposed answers inside docs/ or inside the committed decision files
+- Adding NMTC or NOAP to an admissible set
+- Inventing POP ID / OpenID / Check ID mappings
+- Inventing ticket keys, staff names, hostnames
+- Claiming the deck is an approved FSD
+- Claiming tests ran on T24
+- Mixing QT-2-4A audit claims you did not observe in this run
+- Prettifying through Word or splitting the file
+- Em dashes. Emoji. "As an AI". Praise. Apology.
+
+OUTPUT ORDER
+1. Write the file.
+2. In chat, list slide count and confirm last-row and FT-block behaviours exist in the script.
+3. Verification footer.
+
+VERIFICATION FOOTER
+⊨ Completed: path of the HTML file
+⊨ Verified: twelve sections with data-t, simulator last row, FT disabled on last row, V01-V13 rendered, AC01-AC16 present
+∃? Unverified: visual check in a browser (you cannot open one here unless the user did)
+⊥ Missing: any slide, any V id, any AC id, or any exact string from the protected list that the sources used
+
+DONE RULE
+Stop when the file is written. Do not start answering V01.
+NEXT BRANCH only if asked: generate LN_Team_Handoff one-pager from the same rules, or wire the simulator log tags to R-ids already in the model.

@@ -1,0 +1,4 @@
+FSD_ID: UBBPMA1
+DESCRIPTION: A1 Daily Movements Report - Дневни извлечения за A1
+EPIC: TSC-28363
+OWNER: Reni-Antonio

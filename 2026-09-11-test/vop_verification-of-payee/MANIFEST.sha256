@@ -1,0 +1,22 @@
+# SHA-256 of every file as handed over, 2026-09-11.
+# Verify all:      python verify_manifest.py
+# Verify one:      certutil -hashfile <path> SHA256        (Windows)
+# A CHANGED line is not automatically wrong. Run the check and re-read EDITING.md.
+8d74111ff4d0184e7e7685870460e8e3432d5ab078731ac2a9ce5ba93d67b1c4  .github/copilot-instructions.md
+eb8eeae1f914c0b08a5f447fc4607c1cd9177968b73f220e79d5257f290009bf  .gitignore
+aa3eacb3b97e7c305b9ad0680cb2b9c8e0bd1aebe0bee1fa8f33fb692da31e69  EDITING.md
+a11c54234d0859948653eb4e5445ae17cafafa957c08e324529954314991cb4d  HANDOVER.md
+642a95a091b78253d4da80c532bc42524f43ff11c901aeb4394d1865b06c983e  README.md
+1d85212839d3e0581272d895b119e721a98dbdf392b4501dfb4f96b399204508  UBB_VoP_Handover_2026-09-09.html
+dacdc217354c95b4db00437ac1150de9642e8c055e13521a1be2fc18d1c9f399  check.cmd
+5e13096dd3dda0c894a7b5140b4c59f7574b48461c593fe19de19ed92fc747aa  check.sh
+82ca7a08676e12cb83ea235015563173cafd7c52cc033d5908333fc9748c7242  docs/DECISIONS.md
+2cebe7c6d53a66b488e14a0d3d324ecfaa4ddca1e43c1bb1971fcdf766d455d2  docs/decisions/ADR-0001-two-routes.md
+16dd990570ae363c58fbbf2d3d03c5120d469bb6e9d5b385bbb75d27313bd53e  prompts/01_orient.md
+c226065bdf26af65311ba594a12f985e4953dd3cb5563c4aa637ac3c8c86f80b  prompts/02_answer_a_decision.md
+992f4e9f749816ff163c26609945d40287967a3b15e5ce6dd62525a561c87e25  prompts/03_new_fsd_from_this_pattern.md
+e9dfe6f3d8e6170a6bec4295c4947c7fc24fd0d0e376af432745a2dc75b1bfc4  prompts/04_review.md
+249bb957218e8d27f695ba3a9b3998f2afbadd2c6d559689c595c1ae53cccdbb  ruff.toml
+c5fba483867cad7ba13bc11d4f41aa836ccace39d5b928029019b9e9a7b2f7be  src/vop_enquiry_model_2026_09_09.py
+cd2f1ec62da2185b27f623f9b797b1f08e6be55ad37f0e8332ebc7302e175ae5  tests/test_acceptance_vop_2026_09_09.py
+bffd8aa46a1dcdf19b4138229141c2a3418ce956a81c9f3a83a1cecb7a7677bc  verify_manifest.py

@@ -1,0 +1,4 @@
+BRD: UNKNOWN
+CLAUSE: NOT INGESTED
+SOURCE: waiting for Word/Excel
+---

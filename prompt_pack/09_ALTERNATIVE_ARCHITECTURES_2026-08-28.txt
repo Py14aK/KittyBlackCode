@@ -1,0 +1,73 @@
+ALTERNATIVES TO ONE GIANT SYSTEM PROMPT
+
+A. KERNEL + PACKS (this directory)
+Small always-on kernel. Domain packs loaded per task.
+Best default. Cuts lost-in-the-middle.
+
+B. TWO-PASS EXTRACT THEN ACT
+Pass 1: only classify comment spans. Output JSON.
+Pass 2: another call that may draft email or TODOs from that JSON.
+Stops the model from inventing work while it is also writing prose.
+JSON contract:
+
+{
+  "ticket": "TSC-41246",
+  "spans": [
+    {
+      "text": "Development finished and deployed to SYT.",
+      "class": "STATUS",
+      "owner": null,
+      "action": null,
+      "confidence": "high"
+    }
+  ]
+}
+
+C. XML CONTRACT (Claude-friendly, also fine on GPT-4/5 class)
+Wrap invariants:
+
+<invariants>
+  <exact>BENEF.ID</exact>
+  <exact>RESPONSE.VOP</exact>
+  <forbid>send_email</forbid>
+  <forbid>update_jira</forbid>
+</invariants>
+<output>
+  <meeting_table/>
+  <todos/>
+  <drafts approve="human"/>
+</output>
+
+D. TOOL-FIRST AGENT INSTEAD OF PROMPT THEATRE
+If Jira token and SharePoint exist:
+tool.jira_jql
+tool.excel_read
+tool.excel_write
+tool.outlook_draft
+No tool for send.
+The prompt then only classifies. The tools do I/O.
+A 200-line prompt plus tools beats a 35k prompt with none.
+
+E. EVAL LOOP
+Keep 08_ADVERSARIAL_EVAL_HARNESS as a regression suite.
+Any prompt rewrite must beat the previous score before it replaces a file.
+This is how you actually "show" another model up: published tests, not adjectives.
+
+F. WORKBOOK-NATIVE MACRO / OFFICE SCRIPT
+For the daily sheet, a Power Automate + Office Script that does XLOOKUP carry-forward
+removes half the AI job. Leave AI only on comment classification.
+Matches the original success criterion: less copying, not more dashboard.
+
+G. PER-PERSON SKILL FILES
+jira-daily/SKILL.md
+t24-defect/SKILL.md
+finance-workbook/SKILL.md
+physics-paper/SKILL.md
+Same content as packs, but loadable by Claude Code / Codex / Grok skills.
+Better than one GitHub blob named "prompta".
+
+H. WHAT NOT TO DO
+Do not add a first-session 10-question questionnaire to a daily agent.
+Do not keep Sudoku tactic lists next to PACS.004.
+Do not ask three models to "be better" without a failing case.
+Do not measure success by prompt length.

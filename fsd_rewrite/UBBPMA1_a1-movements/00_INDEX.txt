@@ -1,0 +1,5 @@
+FSD: UBBPMA1
+SLUG: a1-movements
+EPIC: TSC-28363
+OWNER: Reni-Antonio
+STATUS: scaffold — shared FSD

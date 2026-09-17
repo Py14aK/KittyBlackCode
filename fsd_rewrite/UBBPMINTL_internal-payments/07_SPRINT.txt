@@ -1,0 +1,6 @@
+IN
+- folder scaffold
+NEXT
+- ingest Word/Excel
+BLOCKED
+- no source document

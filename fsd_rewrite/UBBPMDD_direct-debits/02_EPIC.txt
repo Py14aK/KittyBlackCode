@@ -1,0 +1,5 @@
+FSD_ID: UBBPMDD
+DESCRIPTION: Direct Debits
+EPIC: TSC-17855
+OWNER: Antonio
+COLLISION: UBBCSHMN correction also uses TSC-17855

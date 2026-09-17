@@ -1,0 +1,140 @@
+================================================================================
+EXCEL & GOOGLE SHEETS FORMULA REFERENCE GUIDE
+================================================================================
+
+1. LOOKUP & REFERENCE FUNCTIONS
+--------------------------------------------------------------------------------
+1.1 XLOOKUP (Modern Exact & Approximate Lookup)
+    Syntax:
+        XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])
+    Parameters:
+        lookup_value : Value to search for.
+        lookup_array : Column/row vector containing lookup keys.
+        return_array : Column/row vector or grid containing returned values.
+        if_not_found : [Optional] Text/value returned if no match is found (e.g., "N/A").
+        match_mode   : [Optional] 0 = Exact match (default), -1 = Exact or next smaller, 1 = Exact or next larger, 2 = Wildcard match.
+        search_mode  : [Optional] 1 = First to last (default), -1 = Last to first, 2 = Binary search asc, -2 = Binary search dsc.
+    Examples:
+        Exact Match:
+            =XLOOKUP(A2, Customers!A:A, Customers!B:B, "Not Found")
+        Right-to-Left / Left-to-Right Two-Column Return:
+            =XLOOKUP(1001, Data!B:B, Data!A:C, "Missing")
+
+1.2 VLOOKUP (Legacy Vertical Lookup)
+    Syntax:
+        VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+    Parameters:
+        lookup_value  : Target value in first column of table_array.
+        table_array   : Data range where column 1 contains lookup key.
+        col_index_num : 1-based index of column from which to retrieve data.
+        range_lookup  : FALSE = Exact match, TRUE = Approximate match.
+    Examples:
+        Exact Match:
+            =VLOOKUP(A2, ProductCatalog!A:D, 3, FALSE)
+        Partial / Wildcard Match:
+            =VLOOKUP("*" & A2 & "*", ProductCatalog!A:D, 2, FALSE)
+
+1.3 INDEX & MATCH (Flexible Matrix Retrieval)
+    Syntax:
+        INDEX(array, row_num, [column_num])
+        MATCH(lookup_value, lookup_array, [match_type])
+    Parameters:
+        match_type : 0 = Exact match, 1 = Less than (sorted asc), -1 = Greater than (sorted dsc).
+    Examples:
+        Standard 1D Lookup:
+            =INDEX(C2:C100, MATCH(A2, A2:A100, 0))
+        2D Matrix Intersect:
+            =INDEX(B2:G50, MATCH("Product_X", A2:A50, 0), MATCH("Jan_Sales", B1:G1, 0))
+
+
+2. AGGREGATION & FILTERING FUNCTIONS
+--------------------------------------------------------------------------------
+2.1 FILTER (Dynamic Array Filtering)
+    Syntax:
+        FILTER(array, include, [if_empty])
+    Parameters:
+        array    : Range or array to filter.
+        include  : Boolean array condition (e.g., Criteria1 * Criteria2).
+        if_empty : [Optional] Value to return if no rows meet condition.
+    Examples:
+        Single Condition:
+            =FILTER(A2:D100, C2:C100 = "Completed", "No Results")
+        AND Logic (Multi-Condition):
+            =FILTER(A2:D100, (C2:C100 = "Completed") * (D2:D100 >= 5000), "No Results")
+        OR Logic:
+            =FILTER(A2:D100, (C2:C100 = "Pending") + (C2:C100 = "In Review"), "No Results")
+
+2.2 SUMIFS / COUNTIFS / AVERAGEIFS (Conditional Summaries)
+    Syntax:
+        SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)
+        COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2], ...)
+    Examples:
+        Multi-Criteria Sum:
+            =SUMIFS(Transactions!D:D, Transactions!A:A, "EUR", Transactions!C:C, ">=2026-01-01")
+        Wildcard Count:
+            =COUNTIFS(Logs!B:B, "ERROR_*", Logs!C:C, "CRITICAL")
+
+2.3 TEXTJOIN (Delimiter-Based Concatenation)
+    Syntax:
+        TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...)
+    Examples:
+        Concatenate Filtered Values:
+            =TEXTJOIN(", ", TRUE, FILTER(A2:A100, B2:B100 = "Active"))
+
+
+3. DYNAMIC ARRAY PROCESSING & MATRIX MANIPULATION
+--------------------------------------------------------------------------------
+3.1 UNIQUE & SORT
+    Syntax:
+        UNIQUE(array, [by_col], [exactly_once])
+        SORT(array, [sort_index], [sort_order], [by_col])
+    Examples:
+        Sorted Unique List:
+            =SORT(UNIQUE(Orders!B2:B500))
+
+3.2 SEQUENCE & TRANSPOSE
+    Syntax:
+        SEQUENCE(rows, [columns], [start], [step])
+        TRANSPOSE(array)
+    Examples:
+        Generate Date Vector (30 consecutive days from 2026-08-01):
+            =SEQUENCE(30, 1, DATE(2026, 8, 1), 1)
+
+3.3 MMULT (Matrix Multiplication)
+    Syntax:
+        MMULT(array1, array2)
+    Examples:
+        Linear Matrix Vector Product:
+            =MMULT(A2:C4, E2:E4)
+
+
+4. STRING MANIPULATION & TEXT PARSING
+--------------------------------------------------------------------------------
+4.1 REGEXEXTRACT / REGEXREPLACE / REGEXMATCH (Google Sheets Specific)
+    Syntax:
+        REGEXEXTRACT(text, regular_expression)
+        REGEXREPLACE(text, regular_expression, replacement)
+    Examples:
+        Extract Email Domain:
+            =REGEXEXTRACT(A2, "@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})")
+        Extract Digits Only:
+            =REGEXEXTRACT(A2, "\d+")
+
+4.2 TEXTBEFORE & TEXTAFTER (Modern Excel / Sheets)
+    Syntax:
+        TEXTBEFORE(text, delimiter, [instance_num], [match_mode], [match_end], [if_not_found])
+        TEXTAFTER(text, delimiter, [instance_num], [match_mode], [match_end], [if_not_found])
+    Examples:
+        Extract Username before '@':
+            =TEXTBEFORE(A2, "@")
+        Extract File Extension after last '.':
+            =TEXTAFTER(A2, ".", -1)
+
+
+5. DATA SERIALIZATION & FLAT-FILE EXPORT PATTERNS
+--------------------------------------------------------------------------------
+5.1 CSV/TXT Row Serialization Formula
+    Formula:
+        =TEXTJOIN(",", TRUE, A2:Z2)
+    Structured Header + Body Export Builder:
+        =ARRAYFORMULA(A1:A10 & "," & B1:B10 & "," & TEXT(C1:C10, "yyyy-mm-dd"))

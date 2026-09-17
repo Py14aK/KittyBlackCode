@@ -1,0 +1,7 @@
+2026-09-11
+
+Drop into Kitty: UBB_VoP_Handover_2026-09-09.html
+Companion team sheet: LN_Team_Handoff_BG.pdf (binary, kept local if GitHub text API cannot carry it).
+
+Status: working concept, not an approved FSD.
+Folder already referenced the HTML deck. This commit places the missing file next to HANDOVER.md.

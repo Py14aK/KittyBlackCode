@@ -1,0 +1,29 @@
+MAIL MACHINE — paste this as the user turn after loading 01 + 10
+
+Build the UBB daily draft. Headers are law. Table is a projection. Comments are not to be polished.
+
+===LAST_HEADERS===
+Subject: UBB Daily
+To: PASTE_FROM_OUTLOOK
+Cc: PASTE_FROM_OUTLOOK
+
+===TODAY_SHEET===
+Key	Summary	Issue Type	Status	Assignee	Component/s	Fix Version/s	Requestor
+PASTE_ROWS_FROM_EXCEL
+
+===YESTERDAY_KEYS_OPTIONAL===
+PASTE_KEYS_IF_YOU_HAVE_THEM
+
+Constraints:
+- Copy Subject, To, Cc exactly from LAST_HEADERS. Do not guess SMTP.
+- Keep this open, change only the date:
+
+Здравейте,
+
+Изпращам - ТАБЛИЦА със задачи, коментари и решения - "След сутрешната среща" - {DATE} - Джира.
+
+- Output a pipe table with the same column names as TODAY_SHEET.
+- Include NEW, CHANGED, open action, or open blocker rows only.
+- Copy Fix Version/s verbatim. No professional rewrite. No identifier rename.
+- Draft only. End with NOT SENT.
+- Filename if you write a file: ubb_daily_after_standup_YYYY-MM-DD.eml

@@ -1,0 +1,21 @@
+KITTYBLACKCODE PROMPT PACK
+Date: 2026-09-01
+Adds pack 15. Keep 00_INDEX_AND_WHY_2026-08-28.txt as history.
+
+LOAD RULE (unchanged)
+1. Always load 01_CORE_KERNEL.
+2. Load exactly one domain pack for the task.
+3. FSD-to-local-ref cards: load 01 + 02 + 15. Do not load Gemini blueprints as knowledge.
+4. Run 08 after any rewrite. Pack 15 adds cases L M N O.
+
+NEW FILE
+15_FSD_LOCALREF_VERTICAL_CARDS_2026-09-01.txt
+    Maps FSD/UC/TSC to catalog rows. Vertical cards only.
+    Kills FIELD_1_NAME arrays and invented T24 names (BEN.NAME.CYR class).
+    5900-row catalog is queried by Application slice, never dumped.
+
+WHY 15 EXISTS
+A generic model given VoP + ISO 20022 context writes a 20-page architecture note
+and then a horizontal array wearing WORKFLOW labels.
+That output is not a developer pick-up and it mutates identifiers 02 and 11 lock.
+15 is the failing test made into a pack.

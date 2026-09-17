@@ -1,0 +1,5 @@
+FSD: UBBPMPRL
+SLUG: payroll
+EPIC: TSC-17866
+OWNER: Antonio
+STATUS: scaffold — drop Word/Excel in raw/

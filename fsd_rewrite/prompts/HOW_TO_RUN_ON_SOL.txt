@@ -1,0 +1,7 @@
+GitHub Copilot model picker: GPT-5.6 Sol
+Reasoning: max
+Not Free. Not Luna. Not Terra.
+
+1. Custom instructions / agent instructions = COPILOT_GPT56_SOL_SYSTEM.txt
+2. Chat message = COPILOT_GPT56_SOL_USER.txt with FSD text pasted
+3. If the model answers without SWITCH_MODEL and you are on Free, change the picker first.

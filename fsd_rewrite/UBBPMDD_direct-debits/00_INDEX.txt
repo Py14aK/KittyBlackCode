@@ -1,0 +1,6 @@
+FSD: UBBPMDD
+SLUG: direct-debits
+EPIC: TSC-17855
+OWNER: Antonio
+STATUS: scaffold — drop Word/Excel in raw/
+NOTE: TSC-17855 also claimed by Cash Management correction. COLLISION.

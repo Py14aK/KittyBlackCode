@@ -1,0 +1,260 @@
+Got you. You mean the **personal-finance Excel/dashboard setup we built from your statements**, not the SMCI trade summary.
+
+For your friend on free ChatGPT, I’d give her a prompt that asks ChatGPT to build a **personal finance workbook from bank statements / transaction exports**, with spending, recurring subscriptions, cash flow, savings, investments, and a dashboard.
+
+I want you to help me build a personal-finance Excel workbook from my bank statements, card transactions, brokerage transactions, and account balances.
+
+I may upload CSV, Excel, PDF statements, or screenshots.
+
+Your job is to first extract and clean the data, then design an Excel workbook that gives me one place to understand my finances.
+
+Do NOT invent transactions or categories. If something is unclear, mark it as UNKNOWN and ask me only when necessary.
+
+Create these core tables/sheets:
+
+## 1. TRANSACTIONS
+
+One row per transaction.
+
+Required columns:
+
+* Date
+* Account
+* Institution
+* Description
+* Merchant / Counterparty
+* Amount
+* Currency
+* Amount in Base Currency
+* Transaction Type
+* Category
+* Subcategory
+* Cash / Non-Cash
+* Recurring?
+* Subscription?
+* Essential / Discretionary
+* Income / Expense / Transfer / Investment
+* Notes
+
+Rules:
+
+* Keep transfers between my own accounts separate from true spending.
+* Do not count internal transfers as expenses.
+* Do not count brokerage deposits as consumption.
+* Detect refunds and reversals where possible.
+* Detect duplicate transactions.
+* Keep original transaction description for audit purposes.
+
+## 2. ACCOUNTS
+
+Track:
+
+* Account
+* Institution
+* Account Type
+* Currency
+* Current Balance
+* Available Balance
+* Base-Currency Balance
+* Last Updated
+
+Include bank accounts, spending accounts, savings accounts, cash accounts and brokerage cash.
+
+## 3. MONTHLY CASH FLOW
+
+For every month calculate:
+
+* Total income
+* Total true spending
+* Fixed spending
+* Variable spending
+* Recurring spending
+* Subscription spending
+* Transfers
+* Investment contributions
+* Net cash flow
+* Savings rate
+
+Savings Rate = (Income - True Spending) / Income
+
+Transfers between my own accounts must not distort cash flow.
+
+## 4. SPENDING ANALYSIS
+
+Summarize spending by:
+
+* Month
+* Category
+* Subcategory
+* Merchant
+* Account
+
+Show:
+
+* Amount
+* Percentage of total spending
+* Average monthly spending
+* Number of transactions
+
+Identify unusually large transactions.
+
+## 5. RECURRING PAYMENTS
+
+Detect transactions that look recurring based on:
+
+* Similar merchant name
+* Similar amount
+* Regular timing
+* Monthly, annual or other repeated frequency
+
+Create columns:
+
+* Merchant
+* Typical Amount
+* Frequency
+* Last Payment
+* Next Expected Payment
+* Subscription?
+* Confidence
+* Active / Possibly Cancelled / Unknown
+
+Separate obvious subscriptions from other recurring payments.
+
+## 6. SUBSCRIPTIONS
+
+Create a clean subscription table containing:
+
+* Service
+* Monthly Equivalent Cost
+* Actual Billing Frequency
+* Last Charged
+* Annual Cost
+* Account Used
+* Active?
+* Notes
+
+Calculate:
+
+Total monthly subscription cost
+
+and
+
+Total annual subscription cost
+
+## 7. INVESTMENTS
+
+For brokerage purchases track:
+
+* Date
+* Ticker
+* Security
+* Buy / Sell
+* Shares
+* Transaction Value
+* Fees
+* Currency
+* Execution Price
+* Account
+
+Calculate where the data permits:
+
+* Total invested capital
+* Shares held
+* Average purchase price
+* Current position cost basis
+
+Do not confuse pending orders with executed trades.
+
+## 8. NET WORTH
+
+Calculate:
+
+Net Worth = Cash + Bank Balances + Investments - Liabilities
+
+Track net worth over time when historical balances are available.
+
+Separate:
+
+* Cash
+* Bank deposits
+* Investments
+* Debt / loans
+* Other assets
+
+## 9. DASHBOARD
+
+Create a simple dashboard showing:
+
+* Current net worth
+* Total liquid cash
+* Current investments
+* This month's income
+* This month's spending
+* This month's net cash flow
+* Savings rate
+* Monthly recurring spending
+* Monthly subscription spending
+* Largest spending categories
+* Spending trend by month
+* Net worth trend
+* Investment contributions
+
+Use charts only where they improve readability.
+
+## 10. DATA QUALITY
+
+Create a section showing:
+
+* Uncategorized transactions
+* Possible duplicates
+* Unknown transfers
+* Suspicious recurring payments
+* Missing dates
+* Missing currencies
+* Transactions requiring manual review
+
+Before building the final workbook, show me:
+
+1. What files/data I supplied
+2. Which accounts were detected
+3. Which currencies were detected
+4. Any ambiguities or missing information
+5. Your proposed category mapping
+
+Then build the workbook.
+
+Keep the design practical rather than decorative. The goal is reconciliation, cash-flow visibility and finding where money is actually going.
+
+### What she should give ChatGPT
+
+Ideally she uploads **3 to 12 months** of:
+
+* bank transaction CSV/XLSX exports
+* credit/debit card statements
+* Revolut or equivalent transaction history
+* brokerage statement if she invests
+* current balances for each account
+* any loan/credit balances if she wants proper net worth
+
+PDFs work, but **CSV/XLSX is much better**. For transaction analysis, structured data beats screenshots by a mile.
+
+The smallest useful dataset would look roughly like this:
+
+| Date       | Account  | Description         |  Amount | Currency |
+| ---------- | -------- | ------------------- | ------: | -------- |
+| 2026-08-01 | Spending | Lidl                |  -42.30 | EUR      |	Description	Amount	Currency
+2026-08-01	Spending	Lidl	-42.30	EUR
+2026-08-02	Main	Salary	2450.00	EUR
+2026-08-03	Card	Netflix	-13.99	EUR
+2026-08-04	Main	Transfer to Savings	-500.00	EUR
+
+The key instruction is “internal transfers are not spending.” Without that, finance workbooks very quickly invent a fictional lifestyle where moving €500 from checking to savings apparently means you consumed €500 worth of invisible sandwiches.
+
+And yes, this is much closer to the thing we were doing with your statements: transaction ledger → classify → detect recurring/non-cash spending → reconcile accounts → cash-flow/dashboard, rather than just a portfolio tracker.
+| 2026-08-02 | Main     | Salary              | 2450.00 | EUR      |
+| 2026-08-03 | Card     | Netflix             |  -13.99 | EUR      |
+| 2026-08-04 | Main     | Transfer to Savings | -500.00 | EUR      |
+
+The key instruction is **“internal transfers are not spending.”** Without that, finance workbooks very quickly invent a fictional lifestyle where moving €500 from checking to savings apparently means you consumed €500 worth of invisible sandwiches.
+
+And yes, this is much closer to the thing we were doing with your statements: **transaction ledger → classify → detect recurring/non-cash spending → reconcile accounts → cash-flow/dashboard**, rather than just a portfolio tracker.

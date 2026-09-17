@@ -1,0 +1,4 @@
+FSD_ID: UBBPMINTL
+DESCRIPTION: Internal payments - вътрешни преводи вкл. между собствени сметки
+EPIC: TSC-17852
+OWNER: Antonio
