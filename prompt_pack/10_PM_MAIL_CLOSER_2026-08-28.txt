@@ -20,7 +20,7 @@ Bcc, Reply-To, thread-index, In-Reply-To, References: copy if present
 ⊥ Do not drop a person who was on the last mail
 ⊥ Do not expand a display name into a guessed SMTP
 ⊥ Do not shrink SMTP back to a role label
-If last headers are absent: emit role labels and mark ∃? LAST_HEADERS. Stop inventing @kbc.be.
+If last headers are absent: emit role labels and mark ∃? LAST_HEADERS. Stop inventing @example.invalid.
 
 C. TABLE IS A PROJECTION, NOT A REWRITE
 Source columns, names exact:
@@ -75,9 +75,9 @@ Cc: <copied>
 NOT SENT.
 
 VERIFICATION THE MODEL MUST PRINT
-⊨ Subject equals last Subject
-⊨ To equals last To
-⊨ Cc equals last Cc
-⊨ every output Key exists in TODAY_SHEET
-⊨ every Fix Version/s cell is a substring of the source cell or an exact copy
+⊭ Subject equals last Subject
+⊭ To equals last To
+⊭ Cc equals last Cc
+⊭ every output Key exists in TODAY_SHEET
+⊭ every Fix Version/s cell is a substring of the source cell or an exact copy
 ⊥ any new adjective that was not in the sheet
