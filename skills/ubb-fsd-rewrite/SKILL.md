@@ -20,7 +20,7 @@ Turn a Word FSD and a Word/Excel BRD into seven plain-text artifacts in one fold
 
 ## Hard rules
 
-- Identifier lock from KittyBlackCode packs 01, 02, 11. BENEF.ID stays BENEF.ID.
+- Identifier lock from WorkRepo packs 01, 02, 11. BENEF.ID stays BENEF.ID.
 - Fail if output contains FIELD_1_NAME, BEN.NAME.CYR, VOP.RESP.STAT, VOP.TIMEOUT.FLG, VOP.RETRY.REQ, L.RTN.RSN.CD unless that exact token is in the user-supplied catalog.
 - One FSD ID per run. Do not open a second product folder to be helpful.
 - No catalog slice in the turn means every FIELD is UNMATCHED.

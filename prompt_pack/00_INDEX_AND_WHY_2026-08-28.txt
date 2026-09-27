@@ -1,4 +1,4 @@
-KITTYBLACKCODE PROMPT PACK
+WORKREPO PROMPT PACK
 Date: 2026-08-28
 Purpose: replace the single bloated handover with a kernel + loadable packs.
 

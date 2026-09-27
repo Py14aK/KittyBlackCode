@@ -1,10 +1,10 @@
 ---
 name: sas-hash-fa
-description: Use for SAS hash-object work on FA books — PD vintage lookup, account-key merge, URG migration counts, VoP match, S-matrix aggregation, MD5 chunked pass, and array-hash ports from Py14aK Hashigami. Triggers include hash merge macro, defineKey, Multidata Y, hash sort no dups, group sum with DoW, moving average hash, Horner multikey, path_finding_with_hash, and Black Belt Hashigami.
+description: Use for SAS hash-object work on FA books — PD vintage lookup, account-key merge, URG migration counts, VoP match, S-matrix aggregation, MD5 chunked pass, and array-hash ports from [OWNER_ID] Hashigami. Triggers include hash merge macro, defineKey, Multidata Y, hash sort no dups, group sum with DoW, moving average hash, Horner multikey, path_finding_with_hash, and Black Belt Hashigami.
 metadata:
   type: workflow
   version: "2026-09-17"
-  source: Py14aK/Py14aK SaS Black Belt Hashigami plus Risk/path_finding_with_hash
+  source: [OWNER_ID]/[OWNER_ID] SaS Black Belt Hashigami plus Risk/path_finding_with_hash
   role: fa
 ---
 
@@ -14,9 +14,9 @@ Port the pasted Hashigami patterns onto FA keys. Do not mix this skill with phys
 
 Canonical GitHub
 
-- Py14aK/Py14aK folders SaS Black Belt Hashigami, SaS, Risk
-- Grok-only notes live in Py14aK/KittyBlackCode/CoGro-
-- FA product work lives in KittyBlackCode packs 01, 02, 11 and 2026-09-11-test
+- [OWNER_ID]/[OWNER_ID] folders SaS Black Belt Hashigami, SaS, Risk
+- Grok-only notes live in [OWNER_ID]/WorkRepo/CoGro-
+- FA product work lives in WorkRepo packs 01, 02, 11 and 2026-09-11-test
 
 ## When to use a hash
 

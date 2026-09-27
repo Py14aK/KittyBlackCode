@@ -3,8 +3,8 @@ Load with CORE KERNEL plus this pack. Do not load pack 04 physics.
 
 CONTEXT
 SAS hash-object patterns from Hashigami, adapted to FA books.
-Repo library: Py14aK/Py14aK (SaS Black Belt Hashigami, SaS, Risk).
-Grok notes only: KittyBlackCode/CoGro-.
+Repo library: [OWNER_ID]/[OWNER_ID] (SaS Black Belt Hashigami, SaS, Risk).
+Grok notes only: WorkRepo/CoGro-.
 
 PROTECTED STRINGS
 account_id
