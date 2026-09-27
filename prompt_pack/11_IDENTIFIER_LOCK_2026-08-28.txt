@@ -11,9 +11,9 @@ Ticket keys: TSC-##### and UBB TIME keys as supplied
 ISO 20022: PACS.004 PACS.002 pain.001
 T24 / OFS: OFS/API EB.ERROR INST.AMT.1 FX.COMMISSION.TYPE FX.COMMISSION.AMOUNT
             OUTWFC OUTFCEU RESPONSE.VOP BENEF.IBAN BENEF.CYRNAME BENEF.LANAME BENEF.ID
-People: Zori, G. Tomov, Vasko, Reni, Nikolay Andreev, Neda, Garbis, Antonio
+People: [COLLEAGUE_ZO], [COLLEAGUE_GT], [COLLEAGUE_VA], [COLLEAGUE_RE], [COLLEAGUE_NA], [COLLEAGUE_NE], [COLLEAGUE_GA], [OWNER]
 Envs: DEV SYT UAT
-Group: R26_R21_T24_Functionals_UBB_KBC
+Group: R26_R21_T24_Functionals_UBB
 Sheet field: Fix Version/s and fixver_1 refer to the same free-text comment column.
 Do not rename it to Comment, Notes, or DailyNote in output that the team will paste.
 

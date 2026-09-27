@@ -1,4 +1,4 @@
-# KittyBlackCode prompt pack (2026-08-28)
+# WorkRepo prompt pack (2026-08-28)
 
 Modular replacement for the root `prompta` blob.
 

@@ -1,8 +1,8 @@
 # CoGro-
 
-Grok-only operating docs for Antonio Kotsev / Py14aK.
+Grok-only operating docs for [OWNER] / [OWNER_ID].
 
-This folder is the only place Grok writes documentation in KittyBlackCode.
+This folder is the only place Grok writes documentation in WorkRepo.
 It does not replace `prompt_pack`, `skills/ubb-fsd-rewrite`, `Risk`, or physics notes.
 
 ## Role lock
@@ -26,6 +26,6 @@ If a pack is not loaded, it does not exist.
 
 ## GitHub homes
 
-- Library and Risk SAS — https://github.com/Py14aK/Py14aK
-- FA product and Grok docs — https://github.com/Py14aK/KittyBlackCode
-- Empty FA scratch — https://github.com/Py14aK/test-for-fa
+- Library and Risk SAS — https://github.com/[OWNER_ID]/[OWNER_ID]
+- FA product and Grok docs — https://github.com/[OWNER_ID]/WorkRepo
+- Empty FA scratch — https://github.com/[OWNER_ID]/test-for-fa
