@@ -2,8 +2,8 @@ X-Unsent: 1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-To: "Zori - Regional" , "G. Tomov - Payments Manager Floor" , "Vasko - Project Manager Floor"
-Cc: "Reni - Team Lead" , "Nikolay Andreev - Senior Functional Analyst + system architect" , "Neda - Functional Analyst" , "Garbis - Junior Functional" , "Antonio - Junior Functional" , "R26_R21_T24_Functionals_UBB_KBC"
+To: "[COLLEAGUE_ZO] - Regional" , "[COLLEAGUE_GT] - Payments Manager Floor" , "[COLLEAGUE_VA] - Project Manager Floor"
+Cc: "[COLLEAGUE_RE] - Team Lead" , "[COLLEAGUE_NA] - Senior Functional Analyst + system architect" , "[COLLEAGUE_NE] - Functional Analyst" , "[COLLEAGUE_GA] - Junior Functional" , "[OWNER] - Junior Functional" , "R26_R21_T24_Functionals_UBB"
 Subject: UBB Daily 2026-08-28
 
 Здравейте,
@@ -11,9 +11,9 @@ Subject: UBB Daily 2026-08-28
 Изпращам - ТАБЛИЦА със задачи, коментари и решения - "След сутрешната среща" - 2026-08-28 - Джира.
 
 Key|Summary|Issue Type|Status|Assignee|Component/s|Fix Version/s|Requestor
-TSC-41246|VoP RESPONSE.VOP mapping|Feature|under dev|Antonio|Payments|SYT: BENEF.ID still required on RESPONSE.VOP parse. Email UAT for sample PACS.002.|PM
-TSC-40001|pain.001 amount vs INST.AMT.1|Bug|FT ready to test|Neda|Payments|Bank test blocked on EB.ERROR in UAT. Neda will execute the tests.|
-TSC-39880|SNOW incident clone collision|Bug|pending|Garbis|Incident SNOW|NEW. Dedup against Feature clone. Do not treat as second ticket.|
+TSC-41246|VoP RESPONSE.VOP mapping|Feature|under dev|[OWNER]|Payments|SYT: BENEF.ID still required on RESPONSE.VOP parse. Email UAT for sample PACS.002.|PM
+TSC-40001|pain.001 amount vs INST.AMT.1|Bug|FT ready to test|[COLLEAGUE_NE]|Payments|Bank test blocked on EB.ERROR in UAT. [COLLEAGUE_NE] will execute the tests.|
+TSC-39880|SNOW incident clone collision|Bug|pending|[COLLEAGUE_GA]|Incident SNOW|NEW. Dedup against Feature clone. Do not treat as second ticket.|
 
 NOT SENT. Replace To/Cc with SMTP from the last chain mail, then Send in Outlook.
 Existential gaps: SMTP addresses, real ticket rows from today's sheet.
