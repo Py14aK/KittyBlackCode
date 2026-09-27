@@ -5,7 +5,7 @@ GOAL
 
 Automate the repetitive work around the team's daily task review. Ensure prerequisite are pulled for tasks and routed to the right person. Eliminate repeating work, research or loading of messages, other congruent tasks and flows. You want step by step fall back to a an already shitty bot( u )
 
-The current process uses an excel with sheets named by Date with current owner being Neda while the rest of us can edit and view.
+The current process uses an excel with sheets named by Date with current owner being [COLLEAGUE_NE] while the rest of us can edit and view.
 { @share-point
 [Morning September]
 [Daily]   
@@ -20,7 +20,7 @@ Create 8 phrases most ofthen used by Presenter to dictate an action,do from the 
 
 MUST HAVE 
 AT THE END OF MEETING
-OUTPUT:Prepared an Email with today's sheet with  > Zori - Regional + G. Tomov - Payments Manager Floor + Team: R26_R21_T24_Functionals_UBB_KBC :  Vasko - Project Manager Floor , Reni - Team Lead, Nikolay Andreev - Senior Functional Analyst + system architect,  Neda - Functional Analyst, Garbis - Junior Functional , Antonio - Junior Functional:: . The email isn't a template, it should be a legit outlook file that opens the app with the email being a at the state of final rdy to send version.
+OUTPUT:Prepared an Email with today's sheet with  > [COLLEAGUE_ZO] - Regional + [COLLEAGUE_GT] - Payments Manager Floor + Team: R26_R21_T24_Functionals_UBB :  [COLLEAGUE_VA] - Project Manager Floor , [COLLEAGUE_RE] - Team Lead, [COLLEAGUE_NA] - Senior Functional Analyst + system architect,  [COLLEAGUE_NE] - Functional Analyst, [COLLEAGUE_GA] - Junior Functional , [OWNER] - Junior Functional:: . The email isn't a template, it should be a legit outlook file that opens the app with the email being a at the state of final rdy to send version.
 Header - Continue the Chain of emails, usually UBB Daily something...
 Use last email as template.
 
@@ -158,10 +158,10 @@ The most important AI task is to distinguish narrative status from an actual com
 
 Examples:
 
-Antonio will email the bank.
+[OWNER] will email the bank.
 Waiting for DEV to investigate.
 Need confirmation from UAT.
-Neda will execute the tests.
+[COLLEAGUE_NE] will execute the tests.
 Send the XML example to the developer.
 Ask for a new local field.
 
@@ -180,12 +180,12 @@ Example:
 
 TSC-12345
 Send email requesting UAT confirmation
-Antonio
+[OWNER]
 UAT team
 OPEN
 Email sent / reply received
 Not specified
-"Antonio will email UAT for confirmation."
+"[OWNER] will email UAT for confirmation."
 
 Do not invent an owner if one cannot be inferred reliably.
 
@@ -243,7 +243,7 @@ After the meeting, generate a TODO list per owner.
 
 Example:
 
-OWNER: Antonio
+OWNER: [OWNER]
 
 TSC-41246
 - Run DEV comparison.
@@ -264,7 +264,7 @@ Never create orphan TODOs.
 
 If a meeting comment creates an email action:
 
-"Antonio will email X."
+"[OWNER] will email X."
 
 the agent should prepare a draft.
 
@@ -370,11 +370,11 @@ Conceptually:
           ▼                   ▼
  Yesterday sheet         Compare tickets
           │                   │
-          └─────────┬─────────┘
+          └─────────┴─────────┘
                     ▼
                Today's sheet
                     │
-       ┌────────────┼────────────┐
+       ┌───────────┼───────────┐
        ▼            ▼            ▼
    New tickets    Changes      Carry-over
                                  actions
@@ -385,11 +385,11 @@ Conceptually:
                     ▼
             AI action extraction
                     │
-       ┌────────────┼─────────────┐
+       ┌───────────┼────────────┐
        ▼            ▼             ▼
      TODOs       Email drafts   Evidence needs
        │            │             │
-       └────────────┼─────────────┘
+       └───────────┼────────────┘
                     ▼
                PM snapshot
 
