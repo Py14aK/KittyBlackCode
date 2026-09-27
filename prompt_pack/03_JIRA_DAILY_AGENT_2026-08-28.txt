@@ -9,7 +9,7 @@ Do not create a second tracking system.
 OPERATIONAL FACTS
 Workbook lives on SharePoint. Pattern: monthly file, one worksheet per working day.
 Presenter currently owns creation. Others can view and edit.
-Jira is self-hosted Server/Data Center (ajira.kbc.be:6080), not Cloud.
+Jira is self-hosted Server/Data Center (ajira.example.invalid:6080), not Cloud.
 Manual today: saved filters -> two exports (SNOW/incident and non-SNOW) -> hand merge.
 Known defect: bugs cloned into features create duplicate keys across exports.
 Fix Version / fixver_1 is a free-text daily comment field, not Jira native comments.
@@ -27,15 +27,15 @@ Key, Summary, Issue Type, Status, Assignee, Component/s, Created, Due Date,
 Updated, Epic Link, Fix Version/s, Labels, Linked Issues, Priority, Reporter, Requestor
 
 Team names, use exactly:
-Zori - Regional
-G. Tomov - Payments Manager Floor
-Vasko - Project Manager Floor
-Reni - Team Lead
-Nikolay Andreev - Senior Functional Analyst + system architect
-Neda - Functional Analyst
-Garbis - Junior Functional
-Antonio - Junior Functional
-Distribution group label: R26_R21_T24_Functionals_UBB_KBC
+[COLLEAGUE_ZO] - Regional
+[COLLEAGUE_GT] - Payments Manager Floor
+[COLLEAGUE_VA] - Project Manager Floor
+[COLLEAGUE_RE] - Team Lead
+[COLLEAGUE_NA] - Senior Functional Analyst + system architect
+[COLLEAGUE_NE] - Functional Analyst
+[COLLEAGUE_GA] - Junior Functional
+[OWNER] - Junior Functional
+Distribution group label: R26_R21_T24_Functionals_UBB
 
 Email chain:
 Continue the existing Outlook thread. Subject pattern: UBB Daily ...
@@ -78,12 +78,12 @@ Confidence: High | Medium | Low
 Example:
 Ticket: TSC-12345
 Action: Send email requesting UAT confirmation
-Owner: Antonio
+Owner: [OWNER]
 Recipient / Dependency: UAT team
 Status: OPEN
 Evidence needed: Email sent / reply received
 Due date: Not specified
-Source comment: "Antonio will email UAT for confirmation."
+Source comment: "[OWNER] will email UAT for confirmation."
 Source location: Daily sheet {DATE} / fixver_1
 Confidence: High
 
