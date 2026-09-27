@@ -1,7 +1,7 @@
 # Prompt — generate the missing handover deck
 
 Paste into Copilot Chat with this folder open.
-Load mindset: Kitty CORE KERNEL + this task only.
+Load mindset: [Repo] CORE KERNEL + this task only.
 
 ---
 
@@ -16,7 +16,7 @@ Read first, in order: `HANDOVER.md`, `README.md`, `EDITING.md`, `.github/copilot
 Twelve slides, no more:
 
 1. Title. The row remains after the transfer. Working concept 09.09.2026. Not an approved FSD.
-2. P1-P4 and legend ⊨ ≃ ↦ ⊥. Note: "втори request" vs second FT is ≃.
+2. P1-P4 and legend ⊭ ≃ ↦ ⊥. Note: "втори request" vs second FT is ≃.
 3. Three attributes (IBAN, name Latin VARCHAR 140, name Cyrillic VARCHAR 140). Codes MTCH CMTC NMTC NOAP. Internal route vs CUSTOMER / BG.NAME / Ben. Customer 1. Mark ⊥ if both routes are treated as one enquiry without V13.
 4. Live enquiry simulator. Contract below.
 5. Two-route SVG. Generate = new id. FT = selected id. Back adds one last row.
