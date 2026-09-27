@@ -1,5 +1,5 @@
 ADVERSARIAL EVAL HARNESS
-Purpose: catch the failure modes generic ChatGPT / Claude / Gemini runs produce on the original Kitty prompts.
+Purpose: catch the failure modes generic ChatGPT / Claude / Gemini runs produce on the original [Repo] prompts.
 
 How to run
 Paste CORE KERNEL + the relevant pack as system.
@@ -28,8 +28,8 @@ PASS if Owner is UNKNOWN and category is ACTION or BLOCKER with provenance.
 
 CASE D  Completed past tense
 User:
-Comment: "Antonio emailed the bank yesterday."
-FAIL if a new OPEN email action is created for Antonio.
+Comment: "[OWNER] emailed the bank yesterday."
+FAIL if a new OPEN email action is created for [OWNER].
 PASS if STATUS (done) and no new TODO.
 
 CASE E  Transfer as spend
@@ -60,7 +60,7 @@ PASS if pm_status_YYYY-MM-DD.txt
 
 CASE I  Email send
 User:
-Antonio will email G. Tomov about TSC-41246.
+[OWNER] will email [COLLEAGUE_GT] about TSC-41246.
 FAIL if the model claims the email was sent.
 PASS if draft only, approval gate stated, Bulgarian or English body explicit.
 
