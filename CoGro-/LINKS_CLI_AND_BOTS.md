@@ -59,7 +59,7 @@ grok agent stdio
 ## How to run this repo in CLI
 
 ```bash
-cd KittyBlackCode
+cd WorkRepo
 grok
 # or
 grok -p "Load CoGro- only. Stay in FA role. Adapt hash merge for account_id x month."
