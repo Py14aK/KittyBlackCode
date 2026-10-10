@@ -15,15 +15,25 @@ The header row is the contract.
 
 You may name columns anything only when you are ready to map them by hand on the Field Mapping page. A file that does not match the template they were given will not reuse a saved mapping.
 
-Three mappings are mandatory on that page:
+The Server template header, taken from Xray’s own example file, is this line and no other:
 
-| Map this Xray field | Usual column in their template |
+```text
+TCID;Test Summary;Test Priority;Component;Action;Data;Result
+```
+
+The separator is a semicolon. The importer map for that header is fixed:
+
+| CSV column | Jira / Xray field |
 |---|---|
-| Test Case Identifier | `TCID` |
-| Summary | `Test Summary` |
-| Action | `Action` |
+| TCID | Test Case Identifier |
+| Test Summary | summary |
+| Test Priority | priority |
+| Component | components |
+| Action | Action |
+| Data | Data |
+| Result | Expected Result |
 
-`Data` and `Result` (expected result) are normal step columns. Map them too. An unmapped column is dropped. It does not fail the import. A missing mandatory mapping does.
+`Result` is the column name. `Expected Result` is the field it maps to. A file that says `Expected Result` in the header does not match this template. Issue fields are filled on the first row of a test only. Later step rows leave Test Summary, Test Priority, and Component empty.
 
 ## What the template does not contain
 
