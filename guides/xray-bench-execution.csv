@@ -1,0 +1,24 @@
+TCID,Test Summary,Action,Data,Result
+BENCH-01,Unknown enquiry stays on ENQ TXN.ENTRY,Open the bench page. Sign in if the host asks.,https://keen-pastelito-f39ab1.netlify.app,The command line is on screen
+BENCH-01,Unknown enquiry stays on ENQ TXN.ENTRY,Type the enquiry command and press Go,ENQ TXN.ENTRY,The title is ENQ TXN.ENTRY and Run enquiry is visible
+BENCH-01,Unknown enquiry stays on ENQ TXN.ENTRY,Enter the FT id,FT000,FT id shows FT000
+BENCH-01,Unknown enquiry stays on ENQ TXN.ENTRY,Enter the date,20261009,Date shows 20261009
+BENCH-01,Unknown enquiry stays on ENQ TXN.ENTRY,Press Run enquiry,,The banner is No such customer
+BENCH-02,Known enquiry opens the local field under IBAN,Type the enquiry command and press Go,ENQ TXN.ENTRY,The title is ENQ TXN.ENTRY
+BENCH-02,Known enquiry opens the local field under IBAN,Enter the FT id,FT2610090001,FT id shows FT2610090001
+BENCH-02,Known enquiry opens the local field under IBAN,Enter the date,20261009,Date shows 20261009
+BENCH-02,Known enquiry opens the local field under IBAN,Press Run enquiry,,"The title is FUNDS.TRANSFER,UBB.INT.BUDGET.250 and the banner is Opened FT2610090001"
+BENCH-02,Known enquiry opens the local field under IBAN,Look at the row directly under IBAN,Ben.name.client,Ben.name.client is the row under the yellow IBAN row and it is marked mandatory
+BENCH-02,Known enquiry opens the local field under IBAN,Type a Cyrillic beneficiary name into Ben.name.client,Иван,The field shows Иван
+BENCH-02,Known enquiry opens the local field under IBAN,Press Validate,,The banner is Checked
+BENCH-02,Known enquiry opens the local field under IBAN,Clear Ben.name.client and press Validate,,The banner is Ben.name.client is mandatory
+BENCH-02,Known enquiry opens the local field under IBAN,Type a Latin name into Ben.name.client and press Validate,Ivan,The banner is Beneficiary name is not in Cyrillic
+BENCH-03,Outgoing payment on the bench then the DEV commands,Type the outgoing version and press Go,"FT,UBB.OUT.EUR.PMNT.BR NEW","The title is FT,UBB.OUT.EUR.PMNT.BR"
+BENCH-03,Outgoing payment on the bench then the DEV commands,Choose the payer,First,Debit currency is EUR and the credit account shows VOSTRO
+BENCH-03,Outgoing payment on the bench then the DEV commands,Enter a debit amount and a credit amount,"10 and 10",Both amount fields show 10
+BENCH-03,Outgoing payment on the bench then the DEV commands,Enter the beneficiary name,Payee,BENEF.NAME shows Payee
+BENCH-03,Outgoing payment on the bench then the DEV commands,Press Validate,,"The banner is Enter the debit amount or the credit amount, not both"
+BENCH-03,Outgoing payment on the bench then the DEV commands,Clear the credit amount and press Validate,,The banner is Warning: Customer sector mismatch.
+BENCH-03,Outgoing payment on the bench then the DEV commands,Press Accept warning,,The banner is Warning accepted
+BENCH-03,Outgoing payment on the bench then the DEV commands,On the command line enter the outgoing DEV command and press Go,/tsbc CBPR.MNT,The banner is Unknown command
+BENCH-03,Outgoing payment on the bench then the DEV commands,On the command line enter the incoming DEV command and press Go,/tsbc CBPR.MNT,The banner is Unknown command

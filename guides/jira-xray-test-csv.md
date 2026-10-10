@@ -117,4 +117,4 @@ To update tests that already exist, the issue keys must be in the same project, 
 
 Put a unique label on the batch, for example `import-2026-10-10`, so a bad run can be found and deleted without touching older tests.
 
-The one-pass way to fill those rows from a BRD line, an FSD line, and a T24 field rule is `guides/brd-fsd-t24-to-xray.md`.
+The filled test of the bench is `guides/xray-bench-execution.csv`. Do not copy an FSD use case into it.
