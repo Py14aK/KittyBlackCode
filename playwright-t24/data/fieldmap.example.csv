@@ -1,0 +1,8 @@
+# phrase used in Xray step text ; T24 field name verbatim. Longest phrase wins. Copy to fieldmap.csv per project.
+ft id;TRANSACTION.REF
+date;BOOKING.DATE
+payer;DEBIT.ACCT.NO
+beneficiary name;BENEF.NAME
+debit amount;DEBIT.AMOUNT
+credit amount;CREDIT.AMOUNT
+credit currency;CREDIT.CURRENCY
