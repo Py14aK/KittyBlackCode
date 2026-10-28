@@ -1,0 +1,6 @@
+TCID;Test Summary;Test Priority;Component;Action;Data;Result
+TKT-00020;Unknown FT on ENQ TXN.ENTRY gives no records;Medium;;Open the T24 page and sign in;http://localhost;
+TKT-00020;;;;Type the enquiry command and press Go;ENQ TXN.ENTRY;The title is ENQ TXN.ENTRY
+TKT-00020;;;;Enter the FT id;FT000;FT id shows FT000
+TKT-00020;;;;Enter the date;20261009;Date shows 20261009
+TKT-00020;;;;Press Run enquiry;;The banner is NO RECORDS MATCHED

@@ -1,0 +1,19 @@
+{
+  "name": "playwright-t24",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Playwright harness for Temenos T24 Browser (R21/R26) functional tests, with an offline mock bench",
+  "scripts": {
+    "mock": "node mock/server.mjs",
+    "test": "playwright test",
+    "test:mock": "T24_TARGET=mock playwright test",
+    "test:syt": "T24_TARGET=syt playwright test --project=edge",
+    "codegen": "playwright codegen --channel=msedge --ignore-https-errors",
+    "report": "playwright show-report reports/html"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^22.0.0",
+    "fast-xml-parser": "^4.5.0"
+  }
+}
