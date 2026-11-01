@@ -1,0 +1,130 @@
+<!doctype html><html><head><meta charset="utf-8"><title>T24 work area (mock)</title>
+<style>
+body{font:13px sans-serif} .error{color:#b00} .override{color:#a60} .complete{color:#060}
+td,th{border:1px solid #ccc;padding:2px 6px} .field{margin:2px 0} label{display:inline-block;width:170px}
+</style></head><body>
+<h3 id="screenTitle"></h3>
+<div id="toolbar"></div>
+<div id="screen"></div>
+<div id="messages"></div>
+<script>
+// ---- fake reference data (no real customers) ----
+const ACCOUNTS={
+  '10000001':{cust:'100001',name:'FIRST MIDDLE LAST',sector:'1001',ccy:'EUR'},
+  '10000002':{cust:'100002',name:'SECOND MIDDLE LAST',sector:'1001',ccy:'BGN'},
+  '10000003':{cust:'100003',name:'ПЪРВИ СРЕДЕН ПОСЛЕДЕН',sector:'2001',ccy:'EUR'}};
+const VOSTRO={EUR:'EUR1700100010001',USD:'USD1700100010001',BGN:'BGN1700100010001'};
+const LIMIT=10000, BENEF_MAX=35;
+// Keymap the harness mirrors in src/t24/keys.ts (ASSUMED for real T24; verify with codegen)
+const KEYMAP={F5:'validate',F2:'commit',F9:'authorise'};
+
+const db=JSON.parse(localStorage.getItem('mock.db')||'{"fts":{},"services":{"BNK.H.TRANSFER":"STOP","MH8.SEPA":"STOP"},"seq":1}');
+const save=()=>localStorage.setItem('mock.db',JSON.stringify(db));
+const user=localStorage.getItem('mock.user')||'';
+const cmd=(new URLSearchParams(location.search).get('cmd')||'').trim();
+const $=s=>document.querySelector(s), screen=$('#screen'), msgs=$('#messages');
+const msg=(cls,t)=>{const d=document.createElement('div');d.className=cls;d.textContent=t;msgs.appendChild(d);return d;};
+const clear=()=>msgs.innerHTML='';
+const field=(n,opts={})=>`<div class="field"><label for="fieldName:${n}">${n}${opts.mand?' *':''}</label><input id="fieldName:${n}" name="fieldName:${n}" ${opts.ro?'readonly':''} value="${opts.v??''}"><span class="enri" id="enri_${n}"></span></div>`;
+const val=n=>{const e=document.getElementById('fieldName:'+n);return e?e.value.trim():'';};
+const setv=(n,v)=>{const e=document.getElementById('fieldName:'+n);if(e)e.value=v;};
+const btn=(title,fn)=>{const b=document.createElement('button');b.title=title;b.textContent=title;b.onclick=fn;$('#toolbar').appendChild(b);return b;};
+const b64=s=>btoa(unescape(encodeURIComponent(s)));
+
+if(!user){ $('#screenTitle').textContent='NOT SIGNED ON'; }
+else if(!cmd){ $('#screenTitle').textContent='Home'; }
+else route(cmd);
+
+function route(c){
+  let m;
+  if(/^TS$/i.test(c)) return services();
+  if((m=c.match(/^ENQ\s+(\S+)/i))) return enquiry(m[1].toUpperCase());
+  if((m=c.match(/^(FT,[\w.]+)\s*(?:\s([IAS]))?\s*(\S+)?$/i))) return txn(m[1].toUpperCase(),(m[2]||'I').toUpperCase(),(m[3]||'').toUpperCase());
+  $('#screenTitle').textContent='ERROR'; msg('error','INVALID COMMAND: '+c);
+}
+
+// ---- transaction screen: input / authorise / see ----
+function txn(version,mode,id){
+  $('#screenTitle').textContent=version+(id?' '+id:' NEW');
+  if(mode!=='I'){
+    const ft=db.fts[id]; if(!ft){msg('error','RECORD '+id+' NOT FOUND');return;}
+    screen.innerHTML=Object.entries(ft.fields).map(([k,v])=>field(k,{v,ro:true})).join('')+`<div id="recordStatus">${ft.status}</div>`;
+    if(mode==='A'){
+      const auth=()=>{clear();
+        if(ft.status!=='INAU'){msg('error','RECORD NOT IN INAU STATUS');return;}
+        if(ft.inputter===user){msg('error','EB-SAME.USER.CANNOT.AUTHORISE');return;}
+        ft.status='AUTH';ft.authoriser=user;save();$('#recordStatus').textContent='AUTH';msg('complete','Txn Complete: '+id);};
+      btn('Authorises a deal',auth); bindKeys({authorise:auth});
+    }
+    return;
+  }
+  screen.innerHTML=[field('DEBIT.ACCT.NO',{mand:1}),field('DEBIT.CURRENCY',{ro:1}),field('CREDIT.CURRENCY',{mand:1}),
+    field('CREDIT.ACCT.NO',{ro:1}),field('DEBIT.AMOUNT'),field('CREDIT.AMOUNT'),field('BENEF.NAME',{mand:1}),field('PAYMENT.DETAILS')].join('');
+  // AUTH NEW CONTENT style enrichment on leaving the field
+  document.getElementById('fieldName:DEBIT.ACCT.NO').addEventListener('change',()=>{
+    const a=ACCOUNTS[val('DEBIT.ACCT.NO')];
+    document.getElementById('enri_DEBIT.ACCT.NO').textContent=a?`${a.cust} ${a.name} SECTOR ${a.sector}`:'';
+    setv('DEBIT.CURRENCY',a?a.ccy:'');});
+  document.getElementById('fieldName:CREDIT.CURRENCY').addEventListener('change',()=>setv('CREDIT.ACCT.NO',VOSTRO[val('CREDIT.CURRENCY').toUpperCase()]||''));
+  const validate=()=>{clear();const errs=[],ovr=[];
+    if(!ACCOUNTS[val('DEBIT.ACCT.NO')]) errs.push('DEBIT.ACCT.NO: '+(val('DEBIT.ACCT.NO')?'MISSING ACCOUNT RECORD':'INPUT MISSING'));
+    if(!val('CREDIT.CURRENCY')) errs.push('CREDIT.CURRENCY: INPUT MISSING');
+    else if(!VOSTRO[val('CREDIT.CURRENCY').toUpperCase()]) errs.push('CREDIT.CURRENCY: NO VOSTRO FOR CURRENCY');
+    const da=val('DEBIT.AMOUNT'),ca=val('CREDIT.AMOUNT');
+    if(da&&ca) errs.push('DEBIT.AMOUNT: ONLY ONE OF DEBIT.AMOUNT/CREDIT.AMOUNT ALLOWED');
+    if(!da&&!ca) errs.push('DEBIT.AMOUNT: EITHER DEBIT OR CREDIT AMOUNT MANDATORY');
+    const amt=Number(da||ca); if((da||ca)&&!(amt>0)) errs.push('AMOUNT: INVALID AMOUNT');
+    if(!val('BENEF.NAME')) errs.push('BENEF.NAME: INPUT MISSING');
+    if(val('BENEF.NAME').length>BENEF_MAX) errs.push('BENEF.NAME: TOO MANY CHARACTERS (MAX '+BENEF_MAX+')');
+    if(amt>LIMIT) ovr.push('AMOUNT EXCEEDS SINGLE TXN LIMIT '+LIMIT);
+    errs.forEach(e=>msg('error',e));
+    ovr.forEach((o,i)=>{const d=msg('override',o+' ');d.innerHTML+=`<input type="checkbox" name="overrideAccepted:${i}" title="Accept Override">`;});
+    return {errs,ovr};};
+  const commit=()=>{const accepted=[...msgs.querySelectorAll('.override input')].every(c=>c.checked);
+    const hadOvr=msgs.querySelector('.override');
+    if(hadOvr&&accepted){} else { const r=validate(); if(r.errs.length||r.ovr.length) return; }
+    const id='FT26301'+String(db.seq++).padStart(5,'0');
+    const fields={};['DEBIT.ACCT.NO','DEBIT.CURRENCY','CREDIT.CURRENCY','CREDIT.ACCT.NO','DEBIT.AMOUNT','CREDIT.AMOUNT','BENEF.NAME','PAYMENT.DETAILS'].forEach(n=>fields[n]=val(n));
+    db.fts[id]={fields,status:'INAU',inputter:user,version,date:'20261028'};save();clear();msg('complete','Txn Complete: '+id);};
+  btn('Validate a deal',validate); btn('Commit the deal',commit); bindKeys({validate,commit});
+}
+function bindKeys(actions){document.addEventListener('keydown',e=>{const a=KEYMAP[e.key];if(a&&actions[a]){e.preventDefault();actions[a]();}});}
+
+// ---- enquiries ----
+function enquiry(name){
+  $('#screenTitle').textContent='ENQ '+name;
+  if(name==='TXN.ENTRY'){
+    screen.innerHTML=field('TRANSACTION.REF',{mand:1})+field('BOOKING.DATE',{mand:1})+field('ACCOUNT')+field('CURRENCY');
+    btn('Run enquiry',()=>{clear();const id=val('TRANSACTION.REF').toUpperCase(),d=val('BOOKING.DATE');
+      if(!id||!d){msg('error','MANDATORY SELECTION MISSING');return;}
+      if(!/^\d{8}$/.test(d)){msg('error','BOOKING.DATE: INVALID DATE FORMAT YYYYMMDD');return;}
+      const ft=db.fts[id]; if(!ft||ft.date!==d){msg('error','NO RECORDS MATCHED');return;}
+      const amt=ft.fields['DEBIT.AMOUNT']||ft.fields['CREDIT.AMOUNT'];
+      table(['TRANSACTION.REF','ACCOUNT','SIGN','AMOUNT','STATUS'],[[id,ft.fields['DEBIT.ACCT.NO'],'D',amt,ft.status],[id,ft.fields['CREDIT.ACCT.NO'],'C',amt,ft.status]]);});
+    return;
+  }
+  if(name==='H.TRANSFER'){
+    screen.innerHTML=field('TRANSACTION.REF',{mand:1});
+    btn('Run enquiry',()=>{clear();const id=val('TRANSACTION.REF').toUpperCase(),ft=db.fts[id];
+      if(!ft||ft.status!=='AUTH'){msg('error','NO RECORDS MATCHED');return;}
+      const on=db.services['BNK.H.TRANSFER']==='START';
+      const f=ft.fields,amt=f['DEBIT.AMOUNT']||f['CREDIT.AMOUNT'];
+      const xml=`<?xml version="1.0" encoding="UTF-8"?><Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08"><FIToFICstmrCdtTrf><CdtTrfTxInf><PmtId><EndToEndId>${id}</EndToEndId></PmtId><IntrBkSttlmAmt Ccy="${f['CREDIT.CURRENCY']}">${Number(amt).toFixed(2)}</IntrBkSttlmAmt><Cdtr><Nm>${f['BENEF.NAME']}</Nm></Cdtr><DbtrAcct><Id><Othr><Id>${f['DEBIT.ACCT.NO']}</Id></Othr></Id></DbtrAcct></CdtTrfTxInf></FIToFICstmrCdtTrf></Document>`;
+      table(['TRANSACTION.REF','STATUS','MESSAGE'],[[id,on?'SENT':'PENDING',on?'XML':'']]);
+      if(on){const c=document.querySelector('#enqResults tr:last-child td:last-child');c.dataset.b64=b64(xml);c.className='xmlPayload';}});
+    return;
+  }
+  msg('error','ENQUIRY '+name+' NOT FOUND');
+}
+function table(head,rows){const t=document.createElement('table');t.id='enqResults';
+  t.innerHTML='<tr>'+head.map(h=>`<th>${h}</th>`).join('')+'</tr>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('');screen.appendChild(t);}
+
+// ---- TS services ----
+function services(){
+  $('#screenTitle').textContent='TSA.SERVICE';
+  screen.innerHTML=field('SERVICE.NAME',{mand:1})+'<div>Status: <span id="serviceStatus"></span></div><select id="serviceAction" name="serviceAction"><option value="">--</option><option>START</option><option>STOP</option></select>';
+  btn('Load',()=>{clear();const s=val('SERVICE.NAME').toUpperCase();if(!(s in db.services)){msg('error','SERVICE '+s+' NOT FOUND');return;}$('#serviceStatus').textContent=db.services[s];});
+  btn('Confirm',()=>{clear();const s=val('SERVICE.NAME').toUpperCase(),a=$('#serviceAction').value;if(!(s in db.services)||!a){msg('error','SELECT SERVICE AND ACTION');return;}
+    db.services[s]=a;save();$('#serviceStatus').textContent=a;msg('complete','Txn Complete: '+s+' '+a);});
+}
+</script></body></html>

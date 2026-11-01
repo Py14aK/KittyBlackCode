@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body>
+<span id="userName"></span>
+<input id="commandValue" name="commandValue" size="60" autocomplete="off">
+<button id="cmdGo" title="Go">Go</button>
+<a href="#" id="signOff" title="Sign Off">Sign off</a>
+<script>
+document.getElementById('userName').textContent=localStorage.getItem('mock.user')||'';
+const run=()=>{const c=document.getElementById('commandValue').value.trim(); parent.frames['main'].location='/frame/work?cmd='+encodeURIComponent(c);};
+document.getElementById('cmdGo').onclick=run;
+document.getElementById('commandValue').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+document.getElementById('signOff').onclick=e=>{e.preventDefault();localStorage.removeItem('mock.user');top.location='/';};
+</script></body></html>

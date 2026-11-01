@@ -1,0 +1,7 @@
+{
+  "name": "kittyblackcode",
+  "owner": { "name": "Py14aK" },
+  "plugins": [
+    { "name": "kitty-fa", "source": "./plugins/kitty-fa", "description": "PM + T24 Playwright skills for functional analysts", "version": "2.0.0" }
+  ]
+}
