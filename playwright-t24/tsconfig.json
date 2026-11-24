@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "module": "nodenext", "moduleResolution": "nodenext",
+    "strict": true, "types": ["node"], "esModuleInterop": true, "skipLibCheck": true, "outDir": "dist"
+  },
+  "include": ["src", "tests", "playwright.config.ts"]
+}

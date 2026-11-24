@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>T24 Sign in (mock)</title></head>
+<body>
+<form id="signOn" onsubmit="return go()">
+  <label>User <input name="signOnName" id="signOnName" autocomplete="off"></label>
+  <label>Password <input name="password" id="password" type="password"></label>
+  <input type="submit" id="sign-in" value="Sign in">
+  <div id="loginError" class="error"></div>
+</form>
+<script>
+function go(){
+  const u=document.getElementById('signOnName').value.trim(), p=document.getElementById('password').value;
+  if(!u||!p){document.getElementById('loginError').textContent='SECURITY VIOLATION - USER/PASSWORD REQUIRED';return false;}
+  localStorage.setItem('mock.user',u.toUpperCase()); location.href='/home'; return false;
+}
+</script></body></html>

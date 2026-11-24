@@ -1,0 +1,11 @@
+kitty-fa plugin
+
+skills/pm-* , commands/pm-brainstorm.md and CONNECTORS.md are derived from the
+Anthropic "product-management" plugin v1.2.0, licensed under the Apache License 2.0
+(see licenses/APACHE-2.0-product-management.txt).
+
+Changes made 2026-10-28: skills renamed with a pm- prefix, slash command names updated,
+and an "FA / T24 overlay" section appended to each SKILL.md. The original text above the
+overlay is unchanged.
+
+All other files in this plugin are original to this repository.

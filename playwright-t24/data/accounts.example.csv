@@ -1,0 +1,4 @@
+alias;DEBIT.ACCT.NO;currency;note
+First;10000001;EUR;fake client FIRST MIDDLE LAST (mock data)
+Second;10000002;BGN;fake client
+Cyrillic;10000003;EUR;Cyrillic customer name for encoding tests

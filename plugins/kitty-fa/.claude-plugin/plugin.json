@@ -1,0 +1,7 @@
+{
+  "name": "kitty-fa",
+  "version": "2.0.0",
+  "description": "FA toolkit for T24 delivery: PM skills with an FA/T24 overlay, Playwright test automation skills, and a one-way Copilot relay.",
+  "author": { "name": "Py14aK" },
+  "license": "SEE NOTICE"
+}
